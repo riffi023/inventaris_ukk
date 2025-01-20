@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('tbl_depresiasi', function (Blueprint $table) {
             $table->id('id_depresiasi');
-            $table->string('lama_depresiasi');
-            $table->string('keterangan',50);
+            $table->integer('lama_depresiasi')->comment('Dalam bulan');
+            $table->decimal('nilai_penyusutan', 15, 2)->default(0);
+            $table->string('keterangan', 100);
             $table->timestamps();
         });
     }

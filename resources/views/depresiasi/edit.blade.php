@@ -94,7 +94,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="lama_depresiasi">
-                            <i class="fas fa-clock"></i> Lama Depresiasi:
+                            <i class="fas fa-clock"></i> Lama Depresiasi (Bulan):
                         </label>
                         <input 
                             type="number" 
@@ -102,8 +102,11 @@
                             name="lama_depresiasi" 
                             value="{{ old('lama_depresiasi', $depresiasi->lama_depresiasi) }}" 
                             class="form-control @error('lama_depresiasi') is-invalid @enderror" 
-                            placeholder="Masukkan Lama Depresiasi"
+                            placeholder="Masukkan Lama Depresiasi dalam Bulan"
+                            min="1"
+                            max="600"
                             required>
+                        <small class="text-muted">Masukkan periode depresiasi dalam bulan (1-600 bulan)</small>
                         @error('lama_depresiasi')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -148,7 +151,8 @@ $(document).ready(function() {
             lama_depresiasi: {
                 required: true,
                 number: true,
-                min: 1
+                min: 1,
+                max: 600
             },
             keterangan: {
                 required: true,
@@ -159,7 +163,8 @@ $(document).ready(function() {
             lama_depresiasi: {
                 required: "Lama depresiasi harus diisi",
                 number: "Harus berupa angka",
-                min: "Minimal 1"
+                min: "Minimal 1 bulan",
+                max: "Maksimal 600 bulan (50 tahun)"
             },
             keterangan: {
                 required: "Keterangan harus diisi",

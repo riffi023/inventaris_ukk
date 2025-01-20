@@ -142,42 +142,48 @@
         border: none;
         padding: 12px 35px;
     }
-</style>
 
+</style>
 @endsection
+
+@section('title', 'Detail Sub Kategori Asset')
 
 @section('content')
 <div class="detail-card">
     <div class="detail-header">
-        <h5 class="mb-0">Detail Kategori Asset</h5>
-        <p class="mb-0 text-white-50">Informasi lengkap kategori asset</p>
+        <h5 class="mb-0">Detail Sub Kategori Asset</h5>
+        <p class="mb-0 text-white-50">Informasi lengkap sub kategori asset</p>
     </div>
     
     <div class="detail-body">
         <div class="row">
             <div class="col-md-6">
-                <div class="info-group detail-item" data-toggle="tooltip" title="Kode Kategori">
-                    <strong class="info-label"><i class="fas fa-hashtag"></i> Kode Kategori:</strong>
-                    <p class="info-value">{{ $kategoriAsset->kode_kategori_asset }}</p>
+                <div class="info-group detail-item" data-toggle="tooltip" title="Kode Sub Kategori">
+                    <strong class="info-label"><i class="fas fa-hashtag"></i> Kode Sub Kategori:</strong>
+                    <p class="info-value">{{ $subKategoriAsset->kode_sub_kategori_asset }}</p>
                 </div>
-                <div class="info-group detail-item" data-toggle="tooltip" title="Nama Kategori">
-                    <strong class="info-label"><i class="fas fa-tag"></i> Nama Kategori:</strong>
-                    <p class="info-value">{{ $kategoriAsset->kategori_asset }}</p>
+                <div class="info-group detail-item" data-toggle="tooltip" title="Nama Sub Kategori">
+                    <strong class="info-label"><i class="fas fa-tag"></i> Nama Sub Kategori:</strong>
+                    <p class="info-value">{{ $subKategoriAsset->sub_kategori_asset }}</p>
                 </div>
             </div>
             <div class="col-md-6">
+                <div class="info-group detail-item" data-toggle="tooltip" title="Kategori Asset">
+                    <strong class="info-label"><i class="fas fa-folder"></i> Kategori Asset:</strong>
+                    <p class="info-value">{{ $subKategoriAsset->kategoriAsset->kategori_asset ?? '-' }}</p>
+                </div>
                 <div class="info-group detail-item" data-toggle="tooltip" title="Dibuat Pada">
                     <strong class="info-label"><i class="fas fa-calendar-plus"></i> Dibuat Pada:</strong>
-                    <p class="info-value">{{ $kategoriAsset->created_at->format('d F Y H:i:s') }}</p>
+                    <p class="info-value">{{ $subKategoriAsset->created_at->format('d F Y H:i:s') }}</p>
                 </div>
                 <div class="info-group detail-item" data-toggle="tooltip" title="Diperbarui Pada">
                     <strong class="info-label"><i class="fas fa-calendar-check"></i> Diperbarui Pada:</strong>
-                    <p class="info-value">{{ $kategoriAsset->updated_at->format('d F Y H:i:s') }}</p>
+                    <p class="info-value">{{ $subKategoriAsset->updated_at->format('d F Y H:i:s') }}</p>
                 </div>
             </div>
         </div>
         <div class="text-center mt-4">
-            <a class="btn btn-primary" href="{{ route('kategori_asset.index') }}">
+            <a class="btn btn-primary" href="{{ route('sub-kategori-asset.index') }}">
                 <i class="fas fa-arrow-left me-2"></i>Kembali
             </a>
         </div>

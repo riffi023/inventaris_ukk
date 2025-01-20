@@ -7,6 +7,8 @@ use App\Http\Controllers\KategoriAssetController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DepresiasisController;
 use App\Http\Controllers\DistributorController;
+use App\Http\Controllers\SubKategoriAssetController;
+use App\Http\Controllers\MerkController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,7 +35,24 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::get('/admin/settings', [SettingsController::class, 'index'])->name('admin.settings.index');
     Route::post('/admin/settings', [SettingsController::class, 'update'])->name('admin.settings.update');
-    Route::resource('kategori_asset', KategoriAssetController::class);
+    
+    // Kategori Asset Routes
+    Route::get('/kategori-asset', [KategoriAssetController::class, 'index'])->name('kategori_asset.index');
+    Route::get('/kategori-asset/create', [KategoriAssetController::class, 'create'])->name('kategori_asset.create');
+    Route::post('/kategori-asset', [KategoriAssetController::class, 'store'])->name('kategori_asset.store');
+    Route::get('/kategori-asset/{kategoriAsset}', [KategoriAssetController::class, 'show'])->name('kategori_asset.show');
+    Route::get('/kategori-asset/{kategoriAsset}/edit', [KategoriAssetController::class, 'edit'])->name('kategori_asset.edit');
+    Route::put('/kategori-asset/{kategoriAsset}', [KategoriAssetController::class, 'update'])->name('kategori_asset.update');
+    Route::delete('/kategori-asset/{kategoriAsset}', [KategoriAssetController::class, 'destroy'])->name('kategori_asset.destroy');
+    
     Route::resource('depresiasi', DepresiasisController::class);
+    
+    // Sub Kategori Asset Routes
+    Route::resource('sub-kategori-asset', SubKategoriAssetController::class);
+    
+    // Pastikan route distributor berada di dalam middleware auth
     Route::resource('distributor', DistributorController::class);
+    
+    // Merk Routes
+    Route::resource('merk', MerkController::class);
 });

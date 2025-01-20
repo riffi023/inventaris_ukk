@@ -79,56 +79,64 @@
 </style>
 @endsection
 
+@section('title', 'Edit Sub Kategori Asset')
+
 @section('content')
 <div class="edit-card">
     <div class="edit-header">
-        <h5 class="mb-0">Edit Kategori Asset</h5>
-        <p class="mb-0 text-white-50">Update informasi kategori asset</p>
+        <h5 class="mb-0">Edit Sub Kategori Asset</h5>
+        <p class="mb-0 text-white-50">Update informasi sub kategori asset</p>
     </div>
 
     <div class="edit-body">
-        @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+        @include('components.alert')
 
-        <form action="{{ route('kategori_asset.update', $kategoriAsset->id_kategori_asset) }}" method="POST" id="editForm">
+        <form action="{{ route('sub-kategori-asset.update', $subKategoriAsset->id_sub_kategori_asset) }}" method="POST" id="editForm">
             @csrf
             @method('PUT')
-            
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="kode_kategori_asset">
-                            <i class="fas fa-hashtag"></i> Kode Kategori Asset
+                        <label for="id_kategori_asset">
+                            <i class="fas fa-folder"></i> Kategori Asset:
                         </label>
-                        <input type="text" name="kode_kategori_asset" 
-                               class="form-control @error('kode_kategori_asset') is-invalid @enderror" 
-                               id="kode_kategori_asset" 
-                               value="{{ old('kode_kategori_asset', $kategoriAsset->kode_kategori_asset) }}" 
-                               placeholder="Masukkan Kode Kategori Asset">
-                        @error('kode_kategori_asset')
+                        <select name="id_kategori_asset" id="id_kategori_asset" 
+                                class="form-control @error('id_kategori_asset') is-invalid @enderror">
+                            <option value="">Pilih Kategori Asset</option>
+                            @foreach($kategoriAssets as $kategori)
+                                <option value="{{ $kategori->id_kategori_asset }}" 
+                                    {{ $subKategoriAsset->id_kategori_asset == $kategori->id_kategori_asset ? 'selected' : '' }}>
+                                    {{ $kategori->kategori_asset }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('id_kategori_asset')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="kode_sub_kategori_asset">
+                            <i class="fas fa-hashtag"></i> Kode Sub Kategori:
+                        </label>
+                        <input type="text" id="kode_sub_kategori_asset" name="kode_sub_kategori_asset" 
+                               value="{{ old('kode_sub_kategori_asset', $subKategoriAsset->kode_sub_kategori_asset) }}"
+                               class="form-control @error('kode_sub_kategori_asset') is-invalid @enderror" 
+                               placeholder="Masukkan Kode Sub Kategori">
+                        @error('kode_sub_kategori_asset')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="kategori_asset">
-                            <i class="fas fa-folder"></i> Kategori Asset
+                        <label for="sub_kategori_asset">
+                            <i class="fas fa-tag"></i> Nama Sub Kategori:
                         </label>
-                        <input type="text" name="kategori_asset" 
-                               class="form-control @error('kategori_asset') is-invalid @enderror" 
-                               id="kategori_asset" 
-                               value="{{ old('kategori_asset', $kategoriAsset->kategori_asset) }}"
-                               placeholder="Masukkan Kategori Asset">
-                        @error('kategori_asset')
+                        <input type="text" id="sub_kategori_asset" name="sub_kategori_asset"
+                               value="{{ old('sub_kategori_asset', $subKategoriAsset->sub_kategori_asset) }}"
+                               class="form-control @error('sub_kategori_asset') is-invalid @enderror"
+                               placeholder="Masukkan Nama Sub Kategori">
+                        @error('sub_kategori_asset')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -139,7 +147,7 @@
                 <button type="submit" class="btn btn-primary me-2">
                     <i class="fas fa-save"></i> Update
                 </button>
-                <a class="btn btn-secondary" href="{{ route('kategori_asset.index') }}">
+                <a class="btn btn-secondary" href="{{ route('sub-kategori-asset.index') }}">
                     <i class="fas fa-arrow-left"></i> Kembali
                 </a>
             </div>
@@ -154,22 +162,28 @@
 $(document).ready(function() {
     $("#editForm").validate({
         rules: {
-            kode_kategori_asset: {
+            id_kategori_asset: {
+                required: true
+            },
+            kode_sub_kategori_asset: {
                 required: true,
                 minlength: 3
             },
-            kategori_asset: {
+            sub_kategori_asset: {
                 required: true,
                 minlength: 3
             }
         },
         messages: {
-            kode_kategori_asset: {
-                required: "Kode kategori harus diisi",
+            id_kategori_asset: {
+                required: "Kategori asset harus dipilih"
+            },
+            kode_sub_kategori_asset: {
+                required: "Kode sub kategori harus diisi",
                 minlength: "Minimal 3 karakter"
             },
-            kategori_asset: {
-                required: "Kategori asset harus diisi",
+            sub_kategori_asset: {
+                required: "Nama sub kategori harus diisi",
                 minlength: "Minimal 3 karakter"
             }
         },

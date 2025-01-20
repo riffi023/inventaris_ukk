@@ -37,11 +37,11 @@
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h5 class="mb-0">Manajemen Depresiasi</h5>
-                <p class="mb-0 text-white-50">Kelola data depresiasi</p>
+                <h5 class="mb-0">Manajemen Merk</h5>
+                <p class="mb-0 text-white-50">Kelola data merk</p>
             </div>
-            <a href="{{ route('depresiasi.create') }}" class="btn btn-light">
-                <i class="fas fa-plus-circle me-2"></i>Tambah Depresiasi
+            <a href="{{ route('merk.create') }}" class="btn btn-light">
+                <i class="fas fa-plus-circle me-2"></i>Tambah Merk
             </a>
         </div>
     </div>
@@ -50,38 +50,29 @@
         @include('components.alert')
         
         <div class="table-responsive">
-            <table class="table table-hover" id="depresiasiTable">
+            <table class="table table-hover" id="merkTable">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Lama Depresiasi</th>
-                        <th>Nilai Penyusutan/Bulan</th>
+                        <th>Nama Merk</th>
                         <th>Keterangan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($depresiasis as $index => $depresiasi)
+                    @forelse ($merks as $merk)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $depresiasi->lama_depresiasi }} Bulan</td>
+                        <td>{{ $merk->merk }}</td>
+                        <td>{{ $merk->keterangan }}</td>
                         <td>
-                            @php
-                                $contohHarga = 1000000; // Contoh harga 1 juta
-                                $penyusutanPerBulan = $depresiasi->hitungPenyusutanPerBulan($contohHarga);
-                            @endphp
-                            Rp {{ number_format($penyusutanPerBulan, 0, ',', '.') }}
-                            <small class="text-muted">/bulan</small>
-                        </td>
-                        <td>{{ $depresiasi->keterangan }}</td>
-                        <td>
-                            <form action="{{ route('depresiasi.destroy', $depresiasi->id_depresiasi) }}" 
+                            <form action="{{ route('merk.destroy', $merk->id_merk) }}" 
                                   method="POST" class="d-inline">
-                                <a href="{{ route('depresiasi.show', $depresiasi->id_depresiasi) }}" 
+                                <a href="{{ route('merk.show', $merk->id_merk) }}" 
                                    class="btn btn-info btn-action">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('depresiasi.edit', $depresiasi->id_depresiasi) }}" 
+                                <a href="{{ route('merk.edit', $merk->id_merk) }}" 
                                    class="btn btn-warning btn-action">
                                     <i class="fas fa-edit"></i>
                                 </a>
@@ -93,7 +84,11 @@
                             </form>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr></tr>
+                        <td colspan="4" class="text-center">Data Kosong</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -106,7 +101,7 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('#depresiasiTable').DataTable({
+    $('#merkTable').DataTable({
         language: {
             url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
         }

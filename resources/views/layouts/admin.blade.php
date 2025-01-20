@@ -7,10 +7,11 @@
     <title>@yield('title', 'Inventaris Dashboard')</title>
 
     <!-- Core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Base Styles -->
@@ -262,25 +263,56 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                
-                <!-- Add your navigation items here -->
+
+                <!-- Master Data Barang Group -->
+                <li class="nav-header pt-3 pb-2 px-3 text-white-50 text-uppercase small">
+                    Master Data Barang
+                </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.settings.index') }}" class="nav-link">
-                        <i class="fas fa-cogs"></i>
-                        <span>Settings</span>
+                    <a href="#" class="nav-link {{ request()->routeIs('master-barang.*') ? 'active' : '' }}">
+                        <i class="fas fa-boxes"></i>
+                        <span>Master Barang</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-calculator"></i>
-                        <span>Hitung Depresiasi</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('kategori_asset.index') }}" class="nav-link {{ request()->routeIs('kategori_asset.*') ? 'active' : '' }}">
                         <i class="fas fa-layer-group"></i>
+                        <span>Kategori Asset</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('sub-kategori-asset.index') }}" class="nav-link {{ request()->routeIs('sub-kategori-asset.*') ? 'active' : '' }}">
+                        <i class="fas fa-code-branch"></i>
                         <span>Sub Kategori Asset</span>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('merk.index') }}" class="nav-link {{ request()->routeIs('merk.*') ? 'active' : '' }}">
+                        <i class="fas fa-trademark"></i>
+                        <span>Merk</span>
+                    </a>
+                </li>
+
+                <!-- Lokasi Group -->
+                <li class="nav-header pt-3 pb-2 px-3 text-white-50 text-uppercase small">
+                    Data Lokasi
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link {{ request()->routeIs('lokasi.*') ? 'active' : '' }}">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Lokasi</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Mutasi Lokasi</span>
+                    </a>
+                </li>
+
+                <!-- Manajemen Barang -->
+                <li class="nav-header pt-3 pb-2 px-3 text-white-50 text-uppercase small">
+                    Manajemen Barang
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
@@ -301,27 +333,26 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-exchange-alt"></i>
-                        <span>Mutasi Lokasi</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('depresiasi.index') }}" class="nav-link">
-                        <i class="fas fa-calculator"></i>
-                        <span>Depresiasi</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{ route('distributor.index') }}" class="nav-link {{ request()->routeIs('distributor.*') ? 'active' : '' }}">
                         <i class="fas fa-truck"></i>
                         <span>Distributor</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('kategori_asset.index') }}" class="nav-link">
-                        <i class="fas fa-layer-group"></i>
-                        <span>Kategori Asset</span>
+                    <a href="{{ route('depresiasi.index') }}" class="nav-link {{ request()->routeIs('depresiasi.*') ? 'active' : '' }}">
+                        <i class="fas fa-calculator"></i>
+                        <span>Depresiasi</span>
+                    </a>
+                </li>
+
+                <!-- Settings -->
+                <li class="nav-header pt-3 pb-2 px-3 text-white-50 text-uppercase small">
+                    Pengaturan
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.settings.index') }}" class="nav-link">
+                        <i class="fas fa-cogs"></i>
+                        <span>Settings</span>
                     </a>
                 </li>
             </ul>
@@ -350,7 +381,10 @@
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             // Initialize tooltips

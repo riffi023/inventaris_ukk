@@ -10,7 +10,7 @@ class Merk extends Model
     protected $primaryKey = 'id_merk';
 
     protected $fillable = [
-        'nama_merk',
+        'merk',  // Changed from 'nama_merk' to 'merk'
         'keterangan'
     ];
 }
