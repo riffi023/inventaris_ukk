@@ -24,42 +24,42 @@
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h5 class="mb-0"><i class="fas fa-boxes me-2"></i>Manajemen Master Barang</h5>
-                <p class="mb-0 text-white-50">Kelola data master barang</p>
+                <h5 class="mb-0">Manajemen Satuan</h5>
+                <p class="mb-0 text-white-50">Kelola data satuan barang</p>
             </div>
-            <a href="{{ route('master_barang.create') }}" class="btn btn-light">
-                <i class="fas fa-plus-circle me-2"></i>Tambah Barang
+            <a href="{{ route('satuan.create') }}" class="btn btn-light">
+                <i class="fas fa-plus-circle me-2"></i>Tambah Satuan
             </a>
         </div>
     </div>
     
     <div class="card-body">
-        @include('components.alert')
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p class="mb-0">{{ $message }}</p>
+            </div>
+        @endif
         
         <div class="table-responsive">
-            <table class="table table-hover" id="masterBarangTable">
+            <table class="table table-hover" id="satuanTable">
                 <thead>
                     <tr>
-                        <th><i class="fas fa-hashtag me-2"></i>No</th>
-                        <th><i class="fas fa-barcode me-2"></i>Kode Barang</th>
-                        <th><i class="fas fa-box me-2"></i>Nama Barang</th>
-                        <th><i class="fas fa-clipboard-list me-2"></i>Spesifikasi</th>
-                        <th><i class="fas fa-cog me-2"></i>Aksi</th>
+                        <th>No</th>
+                        <th>Satuan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($masterBarangs as $barang)
+                    @forelse ($satuans as $satuan)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $barang->kode_barang }}</td>
-                        <td>{{ $barang->nama_barang }}</td>
-                        <td>{{ $barang->spesifikasi_teknis }}</td>
+                        <td>{{ $satuan->satuan }}</td>
                         <td>
-                            <form action="{{ route('master_barang.destroy', $barang->id_master_barang) }}" method="POST" class="d-inline">
-                                <a href="{{ route('master_barang.show', $barang->id_master_barang) }}" class="btn btn-info btn-action">
+                            <form action="{{ route('satuan.destroy', $satuan->id_satuan) }}" method="POST" class="d-inline">
+                                <a href="{{ route('satuan.show', $satuan->id_satuan) }}" class="btn btn-info btn-action">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('master_barang.edit', $barang->id_master_barang) }}" class="btn btn-info btn-action">
+                                <a href="{{ route('satuan.edit', $satuan->id_satuan) }}" class="btn btn-warning btn-action">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 @csrf
@@ -72,7 +72,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="text-center">Data Kosong</td>
+                        <td colspan="3" class="text-center">Data Kosong</td></tr>
                     </tr>
                     @endforelse
                 </tbody>
@@ -88,7 +88,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
-        $('#masterBarangTable').DataTable();
+        $('#satuanTable').DataTable();
 
         $('.delete-btn').click(function(e) {
             e.preventDefault();

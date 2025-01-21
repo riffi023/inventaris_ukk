@@ -60,7 +60,7 @@
             text-align: center;
             font-size: 1.25rem;
             font-weight: 700;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav-item {
@@ -72,20 +72,20 @@
             display: flex;
             align-items: center;
             padding: 0.75rem 1rem;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             border-radius: 0.35rem;
             transition: all 0.3s;
         }
 
         .nav-link:hover {
             color: white;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             transform: translateX(5px);
         }
 
         .nav-link.active {
             color: white;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .nav-link i {
@@ -244,7 +244,7 @@
             <!-- User Profile -->
             <div class="p-4 border-bottom border-light">
                 <div class="d-flex align-items-center">
-                    <div class="rounded-circle bg-white text-primary d-flex align-items-center justify-content-center" 
+                    <div class="rounded-circle bg-white text-primary d-flex align-items-center justify-content-center"
                         style="width: 40px; height: 40px;">
                         <span class="font-weight-bold">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
                     </div>
@@ -258,7 +258,8 @@
             <!-- Navigation -->
             <ul class="nav flex-column py-3">
                 <li class="nav-item">
-                    <a href="{{ route('admin.home') }}" class="nav-link {{ request()->routeIs('admin.home') ? 'active' : '' }}">
+                    <a href="{{ route('admin.home') }}"
+                        class="nav-link {{ request()->routeIs('admin.home') ? 'active' : '' }}">
                         <i class="fas fa-home"></i>
                         <span>Dashboard</span>
                     </a>
@@ -269,25 +270,29 @@
                     Master Data Barang
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->routeIs('master-barang.*') ? 'active' : '' }}">
+                    <a href="{{ route('master_barang.index') }}"
+                        class="nav-link {{ request()->routeIs('master-barang.*') ? 'active' : '' }}">
                         <i class="fas fa-boxes"></i>
                         <span>Master Barang</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('kategori_asset.index') }}" class="nav-link {{ request()->routeIs('kategori_asset.*') ? 'active' : '' }}">
+                    <a href="{{ route('kategori_asset.index') }}"
+                        class="nav-link {{ request()->routeIs('kategori_asset.*') ? 'active' : '' }}">
                         <i class="fas fa-layer-group"></i>
                         <span>Kategori Asset</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('sub-kategori-asset.index') }}" class="nav-link {{ request()->routeIs('sub-kategori-asset.*') ? 'active' : '' }}">
+                    <a href="{{ route('sub-kategori-asset.index') }}"
+                        class="nav-link {{ request()->routeIs('sub-kategori-asset.*') ? 'active' : '' }}">
                         <i class="fas fa-code-branch"></i>
                         <span>Sub Kategori Asset</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('merk.index') }}" class="nav-link {{ request()->routeIs('merk.*') ? 'active' : '' }}">
+                    <a href="{{ route('merk.index') }}"
+                        class="nav-link {{ request()->routeIs('merk.*') ? 'active' : '' }}">
                         <i class="fas fa-trademark"></i>
                         <span>Merk</span>
                     </a>
@@ -315,13 +320,15 @@
                     Manajemen Barang
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('satuan.index') }}"
+                        class="nav-link {{ request()->routeIs('satuan.*') ? 'active' : '' }}">
                         <i class="fas fa-balance-scale"></i>
                         <span>Satuan</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('pengadaan.index') }}"
+                        class="nav-link {{ request()->routeIs('pengadaan.*') ? 'active' : '' }}">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Pengadaan</span>
                     </a>
@@ -333,13 +340,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('distributor.index') }}" class="nav-link {{ request()->routeIs('distributor.*') ? 'active' : '' }}">
+                    <a href="{{ route('distributor.index') }}"
+                        class="nav-link {{ request()->routeIs('distributor.*') ? 'active' : '' }}">
                         <i class="fas fa-truck"></i>
                         <span>Distributor</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('depresiasi.index') }}" class="nav-link {{ request()->routeIs('depresiasi.*') ? 'active' : '' }}">
+                    <a href="{{ route('depresiasi.index') }}"
+                        class="nav-link {{ request()->routeIs('depresiasi.*') ? 'active' : '' }}">
                         <i class="fas fa-calculator"></i>
                         <span>Depresiasi</span>
                     </a>
@@ -359,9 +368,9 @@
 
             <!-- Logout -->
             <div class="mt-auto p-3 border-top border-light">
-                <a href="{{ route('logout') }}" 
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                class="nav-link text-danger">
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    class="nav-link text-danger">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </a>
@@ -386,7 +395,7 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Initialize tooltips
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -394,25 +403,26 @@
             });
 
             // Active link handling
-            $('.nav-link').each(function() {
+            $('.nav-link').each(function () {
                 if (window.location.href.includes($(this).attr('href'))) {
                     $(this).addClass('active');
                 }
             });
 
             // Form submit loading state
-            $('form').on('submit', function() {
+            $('form').on('submit', function () {
                 $(this).addClass('loading');
                 $(this).find('button[type="submit"]').prop('disabled', true);
             });
 
             // Table row hover effect
             $('.table tbody tr').hover(
-                function() { $(this).addClass('bg-light'); },
-                function() { $(this).removeClass('bg-light'); }
+                function () { $(this).addClass('bg-light'); },
+                function () { $(this).removeClass('bg-light'); }
             );
         });
     </script>
     @stack('scripts')
 </body>
+
 </html>

@@ -76,24 +76,13 @@
     .detail-item:nth-child(1) { animation-delay: 0.1s; }
     .detail-item:nth-child(2) { animation-delay: 0.2s; }
     .detail-item:nth-child(3) { animation-delay: 0.3s; }
-    .detail-item:nth-child(4) { animation-delay: 0.4s; }
-    .detail-item:nth-child(5) { animation-delay: 0.5s; }
+    
     .detail-card {
         background: white;
         border-radius: 15px;
         overflow: hidden;
         box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         animation: slideUp 0.5s ease-out;
-    }
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
     }
     .detail-header {
         background: linear-gradient(135deg, var(--primary) 0%, #2a52be 100%);
@@ -143,41 +132,58 @@
         padding: 12px 35px;
     }
 </style>
-
 @endsection
 
 @section('content')
 <div class="detail-card">
     <div class="detail-header">
-        <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Detail Kategori Asset</h5>
-        <p class="mb-0 text-white-50">Informasi lengkap kategori asset</p>
+        <h5 class="mb-0">
+            <i class="fas fa-boxes me-2"></i>Detail Master Barang
+        </h5>
+        <p class="mb-0 text-white-50">Informasi lengkap untuk barang #{{ $masterBarang->kode_barang }}</p>
     </div>
     
     <div class="detail-body">
         <div class="row">
             <div class="col-md-6">
-                <div class="info-group detail-item" data-toggle="tooltip" title="Kode Kategori">
-                    <strong class="info-label"><i class="fas fa-hashtag"></i> Kode Kategori:</strong>
-                    <p class="info-value">{{ $kategoriAsset->kode_kategori_asset }}</p>
+                <div class="info-group detail-item" data-toggle="tooltip" title="Kode Barang">
+                    <strong class="info-label">
+                        <i class="fas fa-barcode"></i>
+                        Kode Barang
+                    </strong>
+                    <p class="info-value">{{ $masterBarang->kode_barang }}</p>
                 </div>
-                <div class="info-group detail-item" data-toggle="tooltip" title="Nama Kategori">
-                    <strong class="info-label"><i class="fas fa-tag"></i> Nama Kategori:</strong>
-                    <p class="info-value">{{ $kategoriAsset->kategori_asset }}</p>
+                
+                <div class="info-group detail-item" data-toggle="tooltip" title="Nama Barang">
+                    <strong class="info-label">
+                        <i class="fas fa-box"></i>
+                        Nama Barang
+                    </strong>
+                    <p class="info-value">{{ $masterBarang->nama_barang }}</p>
                 </div>
             </div>
+            
             <div class="col-md-6">
-                <div class="info-group detail-item" data-toggle="tooltip" title="Dibuat Pada">
-                    <strong class="info-label"><i class="fas fa-calendar-plus"></i> Dibuat Pada:</strong>
-                    <p class="info-value">{{ $kategoriAsset->created_at->format('d F Y H:i:s') }}</p>
+                <div class="info-group detail-item" data-toggle="tooltip" title="Spesifikasi Teknis">
+                    <strong class="info-label">
+                        <i class="fas fa-clipboard-list"></i>
+                        Spesifikasi Teknis
+                    </strong>
+                    <p class="info-value">{{ $masterBarang->spesifikasi_teknis }}</p>
                 </div>
+                
                 <div class="info-group detail-item" data-toggle="tooltip" title="Diperbarui Pada">
-                    <strong class="info-label"><i class="fas fa-calendar-check"></i> Diperbarui Pada:</strong>
-                    <p class="info-value">{{ $kategoriAsset->updated_at->format('d F Y H:i:s') }}</p>
+                    <strong class="info-label">
+                        <i class="fas fa-calendar-check"></i>
+                        Diperbarui Pada
+                    </strong>
+                    <p class="info-value">{{ $masterBarang->updated_at->format('d F Y H:i:s') }}</p>
                 </div>
             </div>
         </div>
+
         <div class="text-center mt-4">
-            <a class="btn btn-primary" href="{{ route('kategori_asset.index') }}">
+            <a href="{{ route('master_barang.index') }}" class="btn btn-primary">
                 <i class="fas fa-arrow-left me-2"></i>Kembali
             </a>
         </div>

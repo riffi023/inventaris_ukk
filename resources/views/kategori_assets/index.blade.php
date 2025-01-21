@@ -24,7 +24,7 @@
 <div class="kategori-card bg-white rounded-xl shadow-sm">
     <div class="kategori-header p-4 d-flex justify-content-between align-items-center rounded-top">
         <div>
-            <h5 class="mb-0 text-white">Data Kategori Asset</h5>
+            <h5 class="mb-0 text-white"><i class="fas fa-list-alt me-2"></i>Data Kategori Asset</h5>
             <p class="mb-0 text-white-50">Kelola data kategori asset anda</p>
         </div>
         <a href="{{ route('kategori_asset.create') }}" class="btn btn-light">

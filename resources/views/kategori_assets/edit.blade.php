@@ -82,7 +82,7 @@
 @section('content')
 <div class="edit-card">
     <div class="edit-header">
-        <h5 class="mb-0">Edit Kategori Asset</h5>
+        <h5 class="mb-0"><i class="fas fa-edit me-2"></i>Edit Kategori Asset</h5>
         <p class="mb-0 text-white-50">Update informasi kategori asset</p>
     </div>
 
@@ -121,7 +121,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="kategori_asset">
-                            <i class="fas fa-folder"></i> Kategori Asset
+                            <i class="fas fa-tags"></i> Kategori Asset
                         </label>
                         <input type="text" name="kategori_asset" 
                                class="form-control @error('kategori_asset') is-invalid @enderror" 
@@ -137,10 +137,10 @@
 
             <div class="text-center mt-4">
                 <button type="submit" class="btn btn-primary me-2">
-                    <i class="fas fa-save"></i> Update
+                    <i class="fas fa-save me-2"></i>Update
                 </button>
-                <a class="btn btn-secondary" href="{{ route('kategori_asset.index') }}">
-                    <i class="fas fa-arrow-left"></i> Kembali
+                <a class="btn btn-primary" href="{{ route('kategori_asset.index') }}">
+                    <i class="fas fa-arrow-left me-2"></i>Kembali
                 </a>
             </div>
         </form>

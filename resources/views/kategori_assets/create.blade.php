@@ -20,6 +20,7 @@
     }
     .form-group {
         margin-bottom: 1.5rem;
+        color: #4e73df;
         position: relative;
     }
     .form-control {
@@ -50,7 +51,7 @@
 @section('content')
 <div class="edit-card">
     <div class="edit-header">
-        <h5 class="mb-0">Tambah Kategori Asset</h5>
+        <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Tambah Kategori Asset</h5>
         <p class="mb-0 text-white-50">Tambah kategori asset baru</p>
     </div>
 
@@ -101,12 +102,12 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center">
+            <div class="text-center mt-4">
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Simpan
+                    <i class="fas fa-save me-2"></i>Simpan
                 </button>
-                <a class="btn btn-secondary" href="{{ route('kategori_asset.index') }}">
-                    <i class="fas fa-arrow-left"></i> Kembali
+                <a class="btn btn-primary" href="{{ route('kategori_asset.index') }}">
+                    <i class="fas fa-arrow-left me-2"></i>Kembali
                 </a>
             </div>
         </form>

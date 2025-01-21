@@ -19,16 +19,24 @@ class DepresiasisController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'lama_depresiasi' => 'required',
-            'keterangan' => 'required|max:50',
-        ]);
+{
+    $request->validate([
+        'lama_depresiasi' => 'required',
+        'keterangan' => 'required|max:50',
+    ]);
 
-        Depresiasi::create($request->all());
-        return redirect()->route('depresiasi.index')
-            ->with('success', 'Depresiasi berhasil ditambahkan.');
-    }
+    // Hitung nilai penyusutan default (misalnya dengan harga contoh 1 juta)
+    $contohHarga = 1000000;
+    $nilaiPenyusutan = $contohHarga / $request->lama_depresiasi;
+
+    // Tambahkan nilai penyusutan ke data yang akan disimpan
+    $data = $request->all();
+    $data['nilai_penyusutan'] = $nilaiPenyusutan;
+
+    Depresiasi::create($data);
+    return redirect()->route('depresiasi.index')
+        ->with('success', 'Depresiasi berhasil ditambahkan.');
+}
 
     /**
      * Display the specified resource.
@@ -36,7 +44,7 @@ class DepresiasisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\View
     {
         $depresiasi = Depresiasi::findOrFail($id);
         return view('depresiasi.show', compact('depresiasi'));
@@ -48,16 +56,24 @@ class DepresiasisController extends Controller
     }
 
     public function update(Request $request, Depresiasi $depresiasi)
-    {
-        $request->validate([
-            'lama_depresiasi' => 'required',
-            'keterangan' => 'required|max:50',
-        ]);
+{
+    $request->validate([
+        'lama_depresiasi' => 'required',
+        'keterangan' => 'required|max:50',
+    ]);
 
-        $depresiasi->update($request->all());
-        return redirect()->route('depresiasi.index')
-            ->with('success', 'Depresiasi berhasil diperbarui.');
-    }
+    // Hitung ulang nilai penyusutan
+    $contohHarga = 1000000;
+    $nilaiPenyusutan = $contohHarga / $request->lama_depresiasi;
+
+    // Update data termasuk nilai penyusutan
+    $data = $request->all();
+    $data['nilai_penyusutan'] = $nilaiPenyusutan;
+
+    $depresiasi->update($data);
+    return redirect()->route('depresiasi.index')
+        ->with('success', 'Depresiasi berhasil diperbarui.');
+}
 
     public function destroy(Depresiasi $depresiasi)
     {
