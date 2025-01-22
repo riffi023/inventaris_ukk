@@ -10,6 +10,7 @@ class Lokasi extends Model
     protected $primaryKey = 'id_lokasi';
 
     protected $fillable = [
+        'kode_lokasi',
         'nama_lokasi',
         'keterangan'
     ];

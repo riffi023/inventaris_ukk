@@ -303,13 +303,14 @@
                     Data Lokasi
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->routeIs('lokasi.*') ? 'active' : '' }}">
+                    <a href="{{ route('lokasi.index') }}"
+                        class="nav-link {{ request()->routeIs('lokasi.*') ? 'active' : '' }}">
                         <i class="fas fa-map-marker-alt"></i>
                         <span>Lokasi</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item {{ request()->routeIs('mutasi-lokasi.*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('mutasi-lokasi.index') }}">
                         <i class="fas fa-exchange-alt"></i>
                         <span>Mutasi Lokasi</span>
                     </a>
@@ -334,7 +335,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('opname.index') }}"
+                        class="nav-link {{ request()->routeIs('opname.*') ? 'active' : '' }}">
                         <i class="fas fa-clipboard-check"></i>
                         <span>Opname</span>
                     </a>
@@ -349,8 +351,15 @@
                 <li class="nav-item">
                     <a href="{{ route('depresiasi.index') }}"
                         class="nav-link {{ request()->routeIs('depresiasi.*') ? 'active' : '' }}">
-                        <i class="fas fa-calculator"></i>
+                        <i class="fas fa-chart-line"></i>
                         <span>Depresiasi</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('hitung-depresiasi.index') }}"
+                        class="nav-link {{ request()->routeIs('hitung-depresiasi.*') ? 'active' : '' }}">
+                        <i class="fas fa-calculator"></i>
+                        <span>Hitung Depresiasi</span>
                     </a>
                 </li>
 
@@ -362,6 +371,25 @@
                     <a href="{{ route('admin.settings.index') }}" class="nav-link">
                         <i class="fas fa-cogs"></i>
                         <span>Settings</span>
+                    </a>
+                </li>
+
+                <!-- Tambahkan di bagian sidebar menu -->
+                <li class="nav-item">
+                    <a href="{{ route('monitoring.index') }}"
+                        class="nav-link {{ request()->routeIs('monitoring.index') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-desktop"></i>
+                        <p>
+                            Monitoring
+                            @php
+                                $activeUsers = \App\Models\UserActivity::whereNotNull('login_at')
+                                    ->whereNull('logout_at')
+                                    ->count();
+                            @endphp
+                            @if($activeUsers > 0)
+                                <span class="badge badge-success right">{{ $activeUsers }}</span>
+                            @endif
+                        </p>
                     </a>
                 </li>
             </ul>

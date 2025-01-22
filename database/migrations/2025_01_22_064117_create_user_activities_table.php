@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_opname', function (Blueprint $table) {
-            $table->id('id_opname');
-            $table->foreignId('id_pengadaan')->constrained('tbl_pengadaan','id_pengadaan')->cascadeOnDelete();
-            $table->string('flag_lokasi',45);
-            $table->string('flag_pindah',45);
+        Schema::create('user_activities', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_opname');
+        Schema::dropIfExists('user_activities');
     }
 };

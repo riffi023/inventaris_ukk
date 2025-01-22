@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('id_mutasi_lokasi');
             $table->foreignId('id_lokasi')->constrained('tbl_lokasi','id_lokasi')->cascadeOnDelete();
             $table->foreignId('id_pengadaan')->constrained('tbl_pengadaan','id_pengadaan')->cascadeOnDelete();
-            $table->string('id_peminjam');
-            $table->string('id_pengambilan');
+            $table->string('flag_lokasi');
+            $table->string('flag_pindah');
             $table->timestamps();
         });
     }

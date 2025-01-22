@@ -222,23 +222,21 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="harga_barang">
-                            <i class="fas fa-money-bill"></i> Harga Barang
-                        </label>
+                    <div class="mb-3">
+                        <label for="harga_barang" class="form-label">Harga Barang</label>
                         <input type="text" class="form-control @error('harga_barang') is-invalid @enderror" 
-                               id="harga_barang" name="harga_barang" value="{{ old('harga_barang') }}" required>
+                               id="harga_barang" name="harga_barang" value="{{ old('harga_barang') }}" 
+                               required onkeyup="formatNumber(this)">
                         @error('harga_barang')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="nilai_barang">
-                            <i class="fas fa-coins"></i> Nilai Barang
-                        </label>
+                    <div class="mb-3">
+                        <label for="nilai_barang" class="form-label">Nilai Barang</label>
                         <input type="text" class="form-control @error('nilai_barang') is-invalid @enderror" 
-                               id="nilai_barang" name="nilai_barang" value="{{ old('nilai_barang') }}" required>
+                               id="nilai_barang" name="nilai_barang" value="{{ old('nilai_barang') }}" 
+                               required onkeyup="formatNumber(this)">
                         @error('nilai_barang')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -265,6 +263,16 @@
                         <textarea class="form-control @error('keterangan') is-invalid @enderror" 
                                   id="keterangan" name="keterangan" required>{{ old('keterangan') }}</textarea>
                         @error('keterangan')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="stock_barang" class="form-label">Stock Barang</label>
+                        <input type="number" class="form-control @error('stock_barang') is-invalid @enderror" 
+                               id="stock_barang" name="stock_barang" value="{{ old('stock_barang', 0) }}" 
+                               min="0" required>
+                        @error('stock_barang')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -319,6 +327,17 @@
                 return false;
             }
         });
+
+        function formatNumber(input) {
+            // Hapus semua karakter kecuali angka dan titik
+            let value = input.value.replace(/[^\d.]/g, '');
+            
+            // Pisahkan dengan titik setiap 3 digit
+            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            
+            // Update nilai input
+            input.value = value;
+        }
     });
 </script>
 @endpush

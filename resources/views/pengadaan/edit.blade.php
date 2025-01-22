@@ -202,23 +202,25 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="harga_barang">Harga Barang</label>
+                                    <div class="mb-3">
+                                        <label for="harga_barang" class="form-label">Harga Barang</label>
                                         <input type="text" class="form-control @error('harga_barang') is-invalid @enderror" 
                                                id="harga_barang" name="harga_barang" 
-                                               value="{{ old('harga_barang', $pengadaan->formatted_harga_barang) }}" required>
+                                               value="{{ old('harga_barang', number_format($pengadaan->harga_barang, 0, ',', '.')) }}" 
+                                               required onkeyup="formatNumber(this)">
                                         @error('harga_barang')
-                                            <span class="invalid-feedback">{{ $message }}</span>
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="nilai_barang">Nilai Barang</label>
+                                    <div class="mb-3">
+                                        <label for="nilai_barang" class="form-label">Nilai Barang</label>
                                         <input type="text" class="form-control @error('nilai_barang') is-invalid @enderror" 
                                                id="nilai_barang" name="nilai_barang" 
-                                               value="{{ old('nilai_barang', $pengadaan->formatted_nilai_barang) }}" required>
+                                               value="{{ old('nilai_barang', number_format($pengadaan->nilai_barang, 0, ',', '.')) }}" 
+                                               required onkeyup="formatNumber(this)">
                                         @error('nilai_barang')
-                                            <span class="invalid-feedback">{{ $message }}</span>
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
 
@@ -246,6 +248,17 @@
                                             <span class="invalid-feedback">{{ $message }}</span>
                                         @enderror
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label for="stock_barang" class="form-label">Stock Barang</label>
+                                        <input type="number" class="form-control @error('stock_barang') is-invalid @enderror" 
+                                               id="stock_barang" name="stock_barang" 
+                                               value="{{ old('stock_barang', $pengadaan->stock_barang) }}" 
+                                               min="0" required>
+                                        @error('stock_barang')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
 
@@ -270,7 +283,7 @@
 
             // Format input harga dan nilai barang
             $('#harga_barang, #nilai_barang').on('input', function() {
-                let value = $(this).val().replace(/[^\d]/g, '');
+                let value = $(this).val().replace(/[^\d.]/g, '');
                 if (value) {
                     value = parseInt(value).toLocaleString('id-ID');
                     $(this).val('Rp ' + value);
@@ -297,6 +310,17 @@
                 return false;
             }
         });
+
+        function formatNumber(input) {
+            // Hapus semua karakter kecuali angka dan titik
+            let value = input.value.replace(/[^\d.]/g, '');
+            
+            // Pisahkan dengan titik setiap 3 digit
+            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            
+            // Update nilai input
+            input.value = value;
+        }
         });
     </script>
     @endpush

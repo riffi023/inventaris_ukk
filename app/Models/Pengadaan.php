@@ -24,9 +24,8 @@ class Pengadaan extends Model
         'tgl_pengadaan',
         'harga_barang',
         'nilai_barang',
-        'status_login',
-        'keterangan',
-        'depresiasi_barang'
+        'depresiasi_barang',
+        'stock_barang'
     ];
 
     protected $dates = [
@@ -36,48 +35,42 @@ class Pengadaan extends Model
     ];
 
     protected $casts = [
-        'status_login' => 'string',
-        'harga_barang' => 'decimal:0',
-        'nilai_barang' => 'decimal:0',
         'tgl_pengadaan' => 'date',
-        'depresiasi_barang' => 'decimal:2'
+        'harga_barang' => 'decimal:2',
+        'nilai_barang' => 'decimal:2',
+        'depresiasi_barang' => 'decimal:2',
+        'stock_barang' => 'integer'
     ];
 
     // Relationships
     public function masterBarang(): BelongsTo
     {
-        return $this->belongsTo(MasterBarang::class, 'id_master_barang', 'id_master_barang')
-            ->withDefault(['nama_barang' => 'N/A']);
+        return $this->belongsTo(MasterBarang::class, 'id_master_barang', 'id_master_barang');
     }
 
     public function depresiasi(): BelongsTo
     {
-        return $this->belongsTo(Depresiasi::class, 'id_depresiasi', 'id_depresiasi')
-            ->withDefault(['nama_depresiasi' => '-']);
+        return $this->belongsTo(Depresiasi::class, 'id_depresiasi', 'id_depresiasi');
     }
 
     public function merk(): BelongsTo
     {
-        return $this->belongsTo(Merk::class, 'id_merk', 'id_merk')
-            ->withDefault(['nama_merk' => '-']);
+        return $this->belongsTo(Merk::class, 'id_merk', 'id_merk');
     }
 
     public function satuan(): BelongsTo
     {
-        return $this->belongsTo(Satuan::class, 'id_satuan', 'id_satuan')
-            ->withDefault(['nama_satuan' => '-']);
+        return $this->belongsTo(Satuan::class, 'id_satuan', 'id_satuan');
     }
 
     public function subKategoriAsset(): BelongsTo
     {
-        return $this->belongsTo(SubKategoriAsset::class, 'id_sub_kategori_asset', 'id_sub_kategori_asset')
-            ->withDefault(['nama_sub_kategori_asset' => '-']);
+        return $this->belongsTo(SubKategoriAsset::class, 'id_sub_kategori_asset', 'id_sub_kategori_asset');
     }
 
     public function distributor(): BelongsTo
     {
-        return $this->belongsTo(Distributor::class, 'id_distributor', 'id_distributor')
-            ->withDefault(['nama_distributor' => 'N/A']);
+        return $this->belongsTo(Distributor::class, 'id_distributor', 'id_distributor');
     }
 
     // Accessors & Mutators
@@ -91,14 +84,9 @@ class Pengadaan extends Model
         return 'Rp ' . number_format($this->nilai_barang, 0, ',', '.');
     }
 
-    public function setHargaBarangAttribute($value)
+    public function getFormattedDepresiasiBarangAttribute(): string
     {
-        $this->attributes['harga_barang'] = str_replace(['Rp', '.', ' '], '', $value);
-    }
-
-    public function setNilaiBarangAttribute($value)
-    {
-        $this->attributes['nilai_barang'] = str_replace(['Rp', '.', ' '], '', $value);
+        return 'Rp ' . number_format($this->depresiasi_barang, 0, ',', '.');
     }
 
     public function hitungDepresiasi()
@@ -112,11 +100,6 @@ class Pengadaan extends Model
         }
 
         return $this->depresiasi_barang;
-    }
-
-    public function getFormattedDepresiasiBarangAttribute(): string
-    {
-        return 'Rp ' . number_format($this->depresiasi_barang, 0, ',', '.');
     }
 
     // Scopes

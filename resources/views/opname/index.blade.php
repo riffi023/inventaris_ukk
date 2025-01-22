@@ -19,7 +19,6 @@
         background-color: #f8f9fc;
     }
 
-    /* Tambahan style untuk scroll */
     .dataTables_wrapper {
         width: 100%;
         overflow-x: auto;
@@ -49,11 +48,11 @@
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h5 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Manajemen Pengadaan</h5>
-                <p class="mb-0 text-white-50">Kelola data pengadaan barang</p>
+                <h5 class="mb-0"><i class="fas fa-clipboard-check me-2"></i>Manajemen Opname</h5>
+                <p class="mb-0 text-white-50">Kelola data opname barang</p>
             </div>
-            <a href="{{ route('pengadaan.create') }}" class="btn btn-light">
-                <i class="fas fa-plus-circle me-2"></i>Tambah Pengadaan
+            <a href="{{ route('opname.create') }}" class="btn btn-light">
+                <i class="fas fa-plus-circle me-2"></i>Tambah Opname
             </a>
         </div>
     </div>
@@ -62,67 +61,59 @@
         @include('components.alert')
 
         <div class="table-responsive">
-            <table class="table table-hover" id="pengadaanTable" style="width: 100%">
+            <table class="table table-hover" id="opnameTable" style="width: 100%">
                 <thead>
                     <tr>
                         <th class="text-nowrap px-3"><i class="fas fa-hashtag me-2"></i>No</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-barcode me-2"></i>Kode</th>
                         <th class="text-nowrap px-3"><i class="fas fa-box me-2"></i>Barang</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-calculator me-2"></i>Depresiasi</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-trademark me-2"></i>Merk</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-balance-scale me-2"></i>Satuan</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-tags me-2"></i>Sub Kategori</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-truck me-2"></i>Distributor</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-file-invoice me-2"></i>No Invoice</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-fingerprint me-2"></i>No Seri</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-calendar me-2"></i>Tahun</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-calendar-alt me-2"></i>Tanggal</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-money-bill me-2"></i>Harga</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-coins me-2"></i>Nilai</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-chart-line me-2"></i>Depresiasi/Bulan</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-check-circle me-2"></i>Status</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-calendar-alt me-2"></i>Tanggal Opname</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-info-circle me-2"></i>Kondisi</th>
                         <th class="text-nowrap px-3"><i class="fas fa-boxes me-2"></i>Stock</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-sync me-2"></i>Stock Update</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-comment me-2"></i>Keterangan</th>
                         <th class="text-nowrap px-3"><i class="fas fa-cog me-2"></i>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($pengadaans as $pengadaan)
+                    @forelse($opnames as $opname)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $pengadaan->kode_pengadaan }}</td>
-                            <td>{{ $pengadaan->masterBarang->nama_barang }}</td>
-                            <td>{{ $pengadaan->depresiasi->lama_depresiasi }} Bulan</td>
-                            <td>{{ $pengadaan->merk->merk }}</td>
-                            <td>{{ $pengadaan->satuan->satuan }}</td>
-                            <td>{{ $pengadaan->subKategoriAsset->sub_kategori_asset }}</td>
-                            <td>{{ $pengadaan->distributor->nama_distributor }}</td>
-                            <td>{{ $pengadaan->no_invoice }}</td>
-                            <td>{{ $pengadaan->no_seri_barang }}</td>
-                            <td>{{ $pengadaan->tahun_produksi }}</td>
-                            <td>{{ $pengadaan->tgl_pengadaan->format('d/m/Y') }}</td>
-                            <td>{{ $pengadaan->formatted_harga_barang }}</td>
-                            <td>{{ $pengadaan->formatted_nilai_barang }}</td>
-                            <td>{{ 'Rp ' . number_format($pengadaan->depresiasi_barang, 0, ',', '.') }}/bulan</td>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td>{{ $opname->pengadaan->masterBarang->nama_barang }}</td>
+                            <td>{{ $opname->tgl_opname->format('d/m/Y') }}</td>
                             <td>
-                                @if($pengadaan->status_login == '1')
-                                    <span class="badge bg-success">Aktif</span>
+                                @if($opname->kondisi == 'Baik')
+                                    <span class="badge bg-success">{{ $opname->kondisi }}</span>
+                                @elseif($opname->kondisi == 'Rusak Ringan')
+                                    <span class="badge bg-warning">{{ $opname->kondisi }}</span>
                                 @else
-                                    <span class="badge bg-danger">Tidak Aktif</span>
+                                    <span class="badge bg-danger">{{ $opname->kondisi }}</span>
                                 @endif
                             </td>
-                            <td class="text-end">{{ number_format($pengadaan->stock_barang, 0, ',', '.') }}</td>
+                            <td>{{ number_format($opname->pengadaan->stock_barang, 0, ',', '.') }}
+                                {{ $opname->pengadaan->satuan->nama_satuan }}
+                            </td>
                             <td>
+                                @if($opname->stock_update)
+                                    {{ number_format($opname->stock_update, 0, ',', '.') }}
+                                    {{ $opname->pengadaan->satuan->nama_satuan }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>{{ $opname->keterangan }}</td>
+                            <td class="text-center">
                                 <div class="btn-group">
-                                    <a href="{{ route('pengadaan.show', $pengadaan) }}" class="btn btn-info btn-action">
+                                    <a href="{{ route('opname.show', $opname) }}" class="btn btn-info btn-sm text-white">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('pengadaan.edit', $pengadaan) }}" class="btn btn-warning btn-action">
+                                    <a href="{{ route('opname.edit', $opname) }}" class="btn btn-warning btn-sm text-white">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form action="{{ route('pengadaan.destroy', $pengadaan) }}" method="POST">
+                                    <form action="{{ route('opname.destroy', $opname) }}" method="POST"
+                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-action delete-btn">
+                                        <button type="submit" class="btn btn-danger btn-sm">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -131,7 +122,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="17" class="text-center">Tidak ada data</td>
+                            <td colspan="8" class="text-center">Tidak ada data</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -147,8 +138,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function () {
-            // Inisialisasi DataTable dengan konfigurasi scroll
-            $('#pengadaanTable').DataTable({
+            $('#opnameTable').DataTable({
                 scrollX: true,
                 scrollCollapse: true,
                 autoWidth: false,
@@ -161,7 +151,6 @@
                         className: 'px-3'
                     }
                 ],
-                // Tambahan konfigurasi untuk scroll yang lebih baik
                 fixedHeader: true,
                 responsive: false,
                 paging: true,
@@ -198,11 +187,6 @@
                     }
                 });
             });
-
-            // Format angka ke format rupiah
-            function formatRupiah(angka) {
-                return 'Rp ' + new Intl.NumberFormat('id-ID').format(angka);
-            }
         });
     </script>
 @endpush

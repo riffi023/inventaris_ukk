@@ -12,6 +12,11 @@ use App\Http\Controllers\MerkController;
 use App\Http\Controllers\MasterBarangController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\PengadaanController;
+use App\Http\Controllers\OpnameController;
+use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\MutasiLokasiController;
+use App\Http\Controllers\HitungDepresiasiController;
+use App\Http\Controllers\MonitoringController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -76,4 +81,19 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     // Add this route for Pengadaan
     Route::resource('pengadaan', PengadaanController::class);
     Route::get('/pengadaan/create', [PengadaanController::class, 'create'])->name('pengadaan.create');
+
+    // Add this route for Opname
+    Route::resource('opname', OpnameController::class);
+
+    // Add this route for Lokasi
+    Route::resource('lokasi', LokasiController::class);
+
+    // Add this route for Mutasi Lokasi
+    Route::resource('mutasi-lokasi', MutasiLokasiController::class);
+
+    // Add this route for Hitung Depresiasi
+    Route::resource('hitung-depresiasi', HitungDepresiasiController::class);
+
+    // Add this route for Monitoring
+    Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring.index');
 });
