@@ -23,7 +23,7 @@
 <!-- Statistics Grid -->
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-aos="fade-up">
     <!-- Total Master Barang -->
-    <div class="bg-white p-6 rounded-xl shadow-md">
+    <div class="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-semibold">Master Barang</h3>
             <i class="fas fa-boxes text-blue-500"></i>
@@ -33,7 +33,7 @@
     </div>
 
     <!-- Total Pengadaan -->
-    <div class="bg-white p-6 rounded-xl shadow-md">
+    <div class="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-semibold">Pengadaan</h3>
             <i class="fas fa-shopping-cart text-green-500"></i>
@@ -43,7 +43,7 @@
     </div>
 
     <!-- Total Depresiasi -->
-    <div class="bg-white p-6 rounded-xl shadow-md">
+    <div class="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-semibold">Depresiasi</h3>
             <i class="fas fa-chart-line text-yellow-500"></i>
@@ -53,7 +53,7 @@
     </div>
 
     <!-- Total Users -->
-    <div class="bg-white p-6 rounded-xl shadow-md">
+    <div class="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-xl font-semibold">Users</h3>
             <i class="fas fa-users text-purple-500"></i>
@@ -61,12 +61,72 @@
         <div class="text-3xl font-bold text-purple-600">{{ $totalUsers }}</div>
         <div class="text-sm text-gray-500 mt-2">Total pengguna sistem</div>
     </div>
+
+    <!-- Total Kategori -->
+    <div class="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Kategori Asset</h3>
+            <i class="fas fa-tags text-indigo-500"></i>
+        </div>
+        <div class="text-3xl font-bold text-indigo-600">{{ $totalKategori }}</div>
+        <div class="text-sm text-gray-500 mt-2">Total kategori asset</div>
+    </div>
+
+    <!-- Total Lokasi -->
+    <div class="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Lokasi</h3>
+            <i class="fas fa-map-marker-alt text-red-500"></i>
+        </div>
+        <div class="text-3xl font-bold text-red-600">{{ $totalLokasi }}</div>
+        <div class="text-sm text-gray-500 mt-2">Total lokasi asset</div>
+    </div>
+
+    <!-- Total Distributor -->
+    <div class="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Distributor</h3>
+            <i class="fas fa-truck text-orange-500"></i>
+        </div>
+        <div class="text-3xl font-bold text-orange-600">{{ $totalDistributor }}</div>
+        <div class="text-sm text-gray-500 mt-2">Total distributor</div>
+    </div>
+
+    <!-- Total Merk -->
+    <div class="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Merk</h3>
+            <i class="fas fa-copyright text-teal-500"></i>
+        </div>
+        <div class="text-3xl font-bold text-teal-600">{{ $totalMerk }}</div>
+        <div class="text-sm text-gray-500 mt-2">Total merk barang</div>
+    </div>
+
+    <!-- Pengadaan Bulan Ini -->
+    <div class="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Pengadaan Baru</h3>
+            <i class="fas fa-calendar-plus text-emerald-500"></i>
+        </div>
+        <div class="text-3xl font-bold text-emerald-600">{{ $pengadaanBulanIni }}</div>
+        <div class="text-sm text-gray-500 mt-2">Pengadaan bulan ini</div>
+    </div>
+
+    <!-- Depresiasi Bulan Ini -->
+    <div class="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Depresiasi Baru</h3>
+            <i class="fas fa-calendar-minus text-rose-500"></i>
+        </div>
+        <div class="text-3xl font-bold text-rose-600">{{ $depresiasBulanIni }}</div>
+        <div class="text-sm text-gray-500 mt-2">Depresiasi bulan ini</div>
+    </div>
 </div>
 
 <!-- Recent Data Tables -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     <!-- Recent Pengadaan -->
-    <div class="bg-white rounded-xl shadow-md">
+    <div class="bg-white rounded-xl shadow-md transition-all duration-300 hover:shadow-lg">
         <div class="p-6 border-b border-gray-200">
             <h3 class="text-xl font-semibold">Pengadaan Terbaru</h3>
         </div>
@@ -82,7 +142,7 @@
                     </thead>
                     <tbody>
                         @foreach($recentPengadaan as $pengadaan)
-                            <tr class="border-b">
+                            <tr class="border-b transition-colors duration-200 hover:bg-gray-50">
                                 <td class="px-4 py-2">{{ $pengadaan->masterBarang->nama_barang }}</td>
                                 <td class="px-4 py-2">{{ $pengadaan->created_at->format('d/m/Y') }}</td>
                                 <td class="px-4 py-2">Rp {{ number_format($pengadaan->harga_barang, 0, ',', '.') }}</td>
@@ -95,7 +155,7 @@
     </div>
 
     <!-- Recent Depresiasi -->
-    <div class="bg-white rounded-xl shadow-md">
+    <div class="bg-white rounded-xl shadow-md transition-all duration-300 hover:shadow-lg">
         <div class="p-6 border-b border-gray-200">
             <h3 class="text-xl font-semibold">Depresiasi Terbaru</h3>
         </div>
@@ -111,7 +171,7 @@
                     </thead>
                     <tbody>
                         @foreach($recentDepresiasi as $depresiasi)
-                            <tr class="border-b">
+                            <tr class="border-b transition-colors duration-200 hover:bg-gray-50">
                                 <td class="px-4 py-2">{{ $depresiasi->pengadaan->masterBarang->nama_barang }}</td>
                                 <td class="px-4 py-2">Rp {{ number_format($depresiasi->nilai_barang, 0, ',', '.') }}</td>
                                 <td class="px-4 py-2">Rp {{ number_format($depresiasi->depresiasi_barang, 0, ',', '.') }}
@@ -123,169 +183,7 @@
             </div>
         </div>
     </div>
-</div>
-
-<!-- Tabel Stok Barang -->
-<div class="mt-8 bg-white rounded-xl shadow-md">
-    <div class="p-6 border-b border-gray-200">
-        <h3 class="text-xl font-semibold">Daftar Stok Barang</h3>
-    </div>
-    <div class="overflow-x-auto">
-        <table class="w-full">
-            <thead>
-                <tr class="bg-gray-100 text-gray-600">
-                    <th class="py-3 px-4 text-left">Nama Barang</th>
-                    <th class="py-3 px-4 text -left">Kategori</th>
-                    <th class="py-3 px-4 text-left">Stok</th>
-                    <th class="py-3 px-4 text-left">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="border-b">
-                    <td class="py-3 px-4">Laptop Asus</td>
-                    <td class="py-3 px-4">Elektronik</td>
-                    <td class="py-3 px-4">25 Unit</td>
-                    <td class="py-3 px-4">
-                        <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">Tersedia</span>
-                    </td>
-                </tr>
-                <tr class="border-b">
-                    <td class="py-3 px-4">Smartphone Samsung</td>
-                    <td class="py-3 px-4">Elektronik</td>
-                    <td class="py-3 px-4">10 Unit</td>
-                    <td class="py-3 px-4">
-                        <span class="bg-yellow-100 text-yellow-600 px-2 py-1 rounded-full text-xs">Segera
-                            Habis</span>
-                    </td>
-                </tr>
-                <tr class="border-b">
-                    <td class="py-3 px-4">Printer Canon</td>
-                    <td class="py-3 px-4">Elektronik</td>
-                    <td class="py-3 px-4">5 Unit</td>
-                    <td class="py-3 px-4">
-                        <span class="bg-red-100 text-red-600 px-2 py-1 rounded-full text-xs">Habis</span>
-                    </td>
-                </tr>
-                <tr class="border-b">
-                    <td class="py-3 px-4">Kursi Kantor</td>
-                    <td class="py-3 px-4">Furniture</td>
-                    <td class="py-3 px-4">15 Unit</td>
-                    <td class="py-3 px-4">
-                        <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">Tersedia</span>
-                    </td>
-                </tr>
-                <tr class="border-b">
-                    <td class="py-3 px-4">Meja Kerja</td>
-                    <td class="py-3 px-4">Furniture</td>
-                    <td class="py-3 px-4">8 Unit</td>
-                    <td class="py-3 px-4">
-                        <span class="bg-yellow-100 text-yellow-600 px-2 py-1 rounded-full text-xs">Segera
-                            Habis</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<!-- Sales Chart Card with fixed height -->
-<div class="mt-8 bg-white rounded-xl shadow-md p-6 transition-all hover:shadow-lg" data-aos="fade-up">
-    <div class="flex justify-between items-center mb-6">
-        <h3 class="text-xl font-semibold text-gray-800">Grafik Penjualan Bulanan</h3>
-        <div class="flex gap-2">
-            <button class="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
-                Minggu Ini
-            </button>
-            <button class="px-3 py-1 text-sm bg-blue-500 text-white hover:bg-blue-600 rounded-full transition-colors">
-                Bulan Ini
-            </button>
-        </div>
-    </div>
-    <div style="height: 300px;"> <!-- Fixed height container -->
-        <canvas id="salesChart"></canvas>
-    </div>
-</div>
-
-<!-- Grafik dan Transaksi -->
-<div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-    <!-- Grafik Aktivitas -->
-    <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-right">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold">Aktivitas Stok Bulanan</h3>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-500" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-        </div>
-        <div class="h-48 flex items-center justify-center">
-            <div class="text-center">
-                <p class="text-gray-500">Grafik aktivitas stok</p>
-                <p class="text-sm text-gray-400">(Placeholder untuk grafik)</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Transaksi Terakhir -->
-    <div class="bg-white rounded-xl shadow-md p-6" data-aos="fade-left">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold">Transaksi Terakhir</h3>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm4 5a.5.5 0 11-1 0 .5.5 0 011 0z" />
-            </svg>
-        </div>
-        <div class="space-y-3">
-            <div class="flex justify-between items-center">
-                <div>
-                    <p class="font-medium">Penjualan Laptop</p>
-                    <p class="text-sm text-gray-500">12 Mei 2023</p>
-                </div>
-                <span class="text-green-600 font-bold">+Rp 15.000.000</span>
-            </div>
-            <div class="flex justify-between items-center">
-                <div>
-                    <p class="font-medium">Pembelian Printer</p>
-                    <p class="text-sm text-gray-500">10 Mei 2023</p>
-                </div>
-                <span class="text-red-600 font-bold">-Rp 5.000.000</span>
-            </div>
-            <div class="flex justify-between items-center">
-                <div>
-                    <p class="font-medium">Penjualan Smartphone</p>
-                    <p class="text-sm text-gray-500">08 Mei 2023</p>
-                </div>
-                <span class="text-green-600 font-bold">+Rp 8.000.000</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Ringkasan Aktivitas -->
-<div class="mt-8 bg-white rounded-xl shadow-md">
-    <div class="p-6 border-b border-gray-200">
-        <h3 class="text-xl font-semibold">Ringkasan Aktivitas</h3>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x">
-        <div class="p-6 text-center">
-            <div class="text-3xl font-bold text-blue-600">42</div>
-            <div class="text-sm text-gray-500 mt-2">Total Transaksi</div>
-        </div>
-        <div class="p-6 text-center">
-            <div class="text-3xl font-bold text-green-600">Rp 250 JT</div>
-            <div class="text-sm text-gray-500 mt-2">Pendapatan Bulan Ini</div>
-        </div>
-        <div class="p-6 text-center">
-            <div class="text-3xl font-bold text-purple-600">18</div>
-            <div class="text-sm text-gray-500 mt-2">Produk Terjual</div>
-        </div>
-        <div class="p-6 text-center">
-            <div class="text-3xl font-bold text-red-600">7</div>
-            <div class="text-sm text-gray-500 mt-2">Produk Habis</div>
-        </div>
-    </div>
-</div>
+</div>  
 @endsection
 
 @push('styles')
@@ -306,6 +204,41 @@
             to {
                 transform: translateX(0);
             }
+        }
+
+        /* Add new animation styles */
+        .hover-trigger .hover-target {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-trigger:hover .hover-target {
+            transform: scale(1.05);
+        }
+
+        .table-row-hover {
+            transition: all 0.2s ease;
+        }
+
+        .table-row-hover:hover {
+            background-color: rgba(59, 130, 246, 0.05);
+            transform: translateX(5px);
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .stat-icon {
+            transition: all 0.3s ease;
         }
     </style>
 @endpush
@@ -443,6 +376,39 @@
             });
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add new animation initializations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to statistic cards
+            const statCards = document.querySelectorAll('.bg-white');
+            statCards.forEach(card => {
+                card.classList.add('stat-card');
+                const icon = card.querySelector('i');
+                if (icon) icon.classList.add('stat-icon');
+            });
+
+            // Add hover effects to table rows
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.classList.add('table-row-hover');
+            });
+
+            // Add hover effects to action buttons
+            const actionButtons = document.querySelectorAll('button, .btn');
+            actionButtons.forEach(button => {
+                button.classList.add('transition-all', 'duration-200', 'transform', 'hover:scale-105');
+            });
+        });
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
     </script>

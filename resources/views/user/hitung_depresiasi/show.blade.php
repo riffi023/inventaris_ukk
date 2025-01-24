@@ -1,23 +1,28 @@
-@extends('layouts.admin')
+@extends('layouts.user')
+
+@section('title', 'Detail Perhitungan Depresiasi')
 
 @section('styles')
 <style>
-    .show-card {
+    .detail-card {
         background: white;
         border-radius: 15px;
-        overflow: hidden;
+        overflow-x: auto;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        animation: slideUp 0.5s ease-out;
     }
 
-    .show-header {
-        background: linear-gradient(135deg, var(--primary) 0%, #2a52be 100%);
+    .detail-header {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         color: white;
         padding: 20px;
         border: none;
+        min-width: 1200px;
     }
 
-    .show-body {
+    .detail-body {
         padding: 30px;
+        min-width: 1200px;
     }
 
     .info-group {
@@ -26,7 +31,8 @@
         padding: 20px;
         margin-bottom: 20px;
         transition: all 0.3s ease;
-        border-left: 4px solid var(--primary);
+        border-left: 4px solid #4e73df;
+        margin-right: 15px;
     }
 
     .info-label {
@@ -40,7 +46,7 @@
 
     .info-label i {
         margin-right: 8px;
-        color: var(--primary);
+        color: #4e73df;
     }
 
     .info-value {
@@ -51,17 +57,29 @@
         border-radius: 8px;
         border: 1px solid #e2e8f0;
     }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 </style>
 @endsection
 
-@section('content')
-<div class="show-card">
-    <div class="show-header">
+@section('user-content')
+<div class="detail-card">
+    <div class="detail-header">
         <h5 class="mb-0">Detail Perhitungan Depresiasi</h5>
         <p class="mb-0 text-white-50">Informasi lengkap perhitungan depresiasi</p>
     </div>
 
-    <div class="show-body">
+    <div class="detail-body">
         <div class="row">
             <div class="col-md-6">
                 <div class="info-group">
@@ -76,13 +94,13 @@
                         <i class="fas fa-calendar"></i> Tanggal Hitung
                     </span>
                     <p class="info-value">
-                        {{ \Carbon\Carbon::parse($depresiasi->tgl_hitung_depresiasi)->format('d F Y') }}
+                        {{ $depresiasi->tgl_hitung_depresiasi ? \Carbon\Carbon::parse($depresiasi->tgl_hitung_depresiasi)->format('d F Y') : 'Tanggal tidak tersedia' }}
                     </p>
                 </div>
 
                 <div class="info-group">
                     <span class="info-label">
-                        <i class="fas fa-clock"></i> Bulan
+                        <i class="far fa-clock"></i> Bulan
                     </span>
                     <p class="info-value">{{ $depresiasi->bulan }}</p>
                 </div>
@@ -98,16 +116,16 @@
 
                 <div class="info-group">
                     <span class="info-label">
-                        <i class="fas fa-money-bill"></i> Nilai Barang
+                        <i class="fas fa-coins"></i> Nilai Barang
                     </span>
                     <p class="info-value">Rp {{ number_format($depresiasi->nilai_barang, 0, ',', '.') }}</p>
                 </div>
 
                 <div class="info-group">
                     <span class="info-label">
-                        <i class="fas fa-calculator"></i> Nilai Depresiasi per Bulan
+                        <i class="fas fa-chart-line"></i> Nilai Depresiasi per Bulan
                     </span>
-                    <p class="info-value">Rp {{ number_format($depresiasi->hitungDepresiasi(), 0, ',', '.') }}</p>
+                    <p class="info-value">Rp {{ number_format($depresiasi->depresiasi_barang, 0, ',', '.') }}</p>
                 </div>
             </div>
         </div>
@@ -128,7 +146,7 @@
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>Rp {{ number_format($depresiasi->hitungNilaiSisaBulan($i), 0, ',', '.') }}</td>
-                                <td>Rp {{ number_format($depresiasi->hitungDepresiasi(), 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($depresiasi->depresiasi_barang, 0, ',', '.') }}</td>
                             </tr>
                         @endfor
                     </tbody>
@@ -138,7 +156,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="{{ route('hitung-depresiasi.index') }}" class="btn btn-secondary">
+            <a href="{{ route('user.hitung_depresiasi.index') }}" class="btn btn-primary">
                 <i class="fas fa-arrow-left"></i> Kembali
             </a>
         </div>

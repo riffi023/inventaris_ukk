@@ -16,6 +16,25 @@
     .table > thead {
         background-color: #f8f9fc;
     }
+    /* Tambahan style untuk scroll */
+    .dataTables_wrapper {
+        width: 100%;
+        overflow-x: auto;
+        position: relative;
+    }
+    .dataTables_scrollBody {
+        overflow-x: auto;
+        width: 100%;
+    }
+    .table {
+        margin-bottom: 0;
+        width: 100% !important;
+    }
+    .table th,
+    .table td {
+        white-space: nowrap;
+        vertical-align: middle;
+    }
 </style>
 @endsection
 
@@ -56,15 +75,15 @@
                         <td>{{ $barang->spesifikasi_teknis }}</td>
                         <td>
                             <form action="{{ route('master_barang.destroy', $barang->id_master_barang) }}" method="POST" class="d-inline">
-                                <a href="{{ route('master_barang.show', $barang->id_master_barang) }}" class="btn btn-info btn-action">
+                                <a href="{{ route('master_barang.show', $barang->id_master_barang) }}" class="btn btn-info btn-action" title="Lihat">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('master_barang.edit', $barang->id_master_barang) }}" class="btn btn-info btn-action">
+                                <a href="{{ route('master_barang.edit', $barang->id_master_barang) }}" class="btn btn-warning btn-action" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-action delete-btn">
+                                <button type="submit" class="btn btn-danger btn-action delete-btn" title="Hapus">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
@@ -88,7 +107,28 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
-        $('#masterBarangTable').DataTable();
+        $('#masterBarangTable').DataTable({
+            scrollX: true,
+            scrollCollapse: true,
+            autoWidth: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
+            },
+            columnDefs: [
+                {
+                    targets: '_all',
+                    className: 'px-3'
+                }
+            ],
+            // Tambahan konfigurasi untuk scroll yang lebih baik
+            fixedHeader: true,
+            responsive: false,
+            paging: true,
+            ordering: true,
+            info: true,
+            lengthChange: true,
+            searching: true,
+        });
 
         $('.delete-btn').click(function(e) {
             e.preventDefault();

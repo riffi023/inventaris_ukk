@@ -17,6 +17,10 @@ use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\MutasiLokasiController;
 use App\Http\Controllers\HitungDepresiasiController;
 use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\UserHitungDepresiasiController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPengadaanController;
+use App\Http\Controllers\UserOpnameController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,8 +35,23 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:user'])->group(function () {
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [UserController::class, 'index'])->name('user.home');
+
+    // Add these routes for user depresiasi
+    Route::get('/user/hitung-depresiasi', [UserHitungDepresiasiController::class, 'index'])
+        ->name('user.hitung_depresiasi.index');
+    Route::get('/user/hitung-depresiasi/{id}', [UserHitungDepresiasiController::class, 'show'])
+        ->name('user.hitung_depresiasi.show');
+
+    // Add these routes for user pengadaan
+    Route::get('/user/pengadaan', [UserPengadaanController::class, 'index'])->name('user.pengadaan.index');
+    Route::get('/user/pengadaan/{pengadaan}', [UserPengadaanController::class, 'show'])->name('user.pengadaan.show');
+
+    // Add this route for Opname
+    Route::get('/user/opname', [UserOpnameController::class, 'index'])->name('user.opname.index');
+    Route::get('/user/opname/{opname}', [UserOpnameController::class, 'show'])->name('user.opname.show');
 });
+
 
 /*------------------------------------------
 --------------------------------------------

@@ -9,13 +9,16 @@
         padding: 5px;
         margin: 2px;
     }
+
     .card-header {
         background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         color: white;
     }
+
     .table > thead {
         background-color: #f8f9fc;
     }
+
     .table thead th {
         font-weight: 600;
         text-transform: uppercase;
@@ -23,15 +26,41 @@
         letter-spacing: 0.5px;
         border-bottom: 2px solid #e3e6f0;
     }
+
     .btn-action:hover {
         transform: translateY(-2px);
         box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     }
+
     .table tbody tr td {
         vertical-align: middle;
     }
+
     .btn-group .btn-action {
         margin: 0 2px;
+    }
+
+    /* Tambahan style untuk scroll */
+    .dataTables_wrapper {
+        width: 100%;
+        overflow-x: auto;
+        position: relative;
+    }
+
+    .dataTables_scrollBody {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .table {
+        margin-bottom: 0;
+        width: 100% !important;
+    }
+
+    .table th,
+    .table td {
+        white-space: nowrap;
+        vertical-align: middle;
     }
 </style>
 @endsection
@@ -112,12 +141,32 @@
 <script>
 $(document).ready(function() {
     $('#merkTable').DataTable({
+        scrollX: true,
+        scrollCollapse: true,
+        autoWidth: false,
         language: {
             url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
         },
-        pageLength: 10,
+        columnDefs: [
+            {
+                targets: '_all',
+                className: 'px-3'
+            }
+        ],
+        fixedHeader: true,
+        responsive: false,
+        paging: true,
         ordering: true,
-        responsive: true
+        info: true,
+        lengthChange: true,
+        searching: true,
+        initComplete: function (settings, json) {
+            $(this).closest('.dataTables_wrapper').find('.dataTables_scrollBody').css({
+                'max-height': '500px',
+                'overflow-y': 'auto',
+                'overflow-x': 'auto'
+            });
+        }
     });
 
     // Delete confirmation

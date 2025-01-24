@@ -1,48 +1,73 @@
 @extends('layouts.admin')
+
 @section('styles')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
 <style>
-    .kategori-card {
-        transition: transform 0.2s ease;
-        overflow: hidden;
+    .btn-action {
+        width: 35px;
+        height: 35px;
+        padding: 5px;
+        margin: 2px;
     }
-    .kategori-header {
-        background: linear-gradient(135deg, var(--primary) 0%, #2a52be 100%);
+
+    .card-header {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         color: white;
-        border: none;
     }
-    .table-container {
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        padding: 20px;
+
+    .table>thead {
+        background-color: #f8f9fc;
     }
-    // ...existing code from distributor/index styles...
+
+    .dataTables_wrapper {
+        width: 100%;
+        overflow-x: auto;
+        position: relative;
+    }
+
+    .dataTables_scrollBody {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .table {
+        margin-bottom: 0;
+        width: 100% !important;
+    }
+
+    .table th,
+    .table td {
+        white-space: nowrap;
+        vertical-align: middle;
+    }
 </style>
 @endsection
 
 @section('content')
-<div class="kategori-card bg-white rounded-xl shadow-sm">
-    <div class="kategori-header p-4 d-flex justify-content-between align-items-center rounded-top">
-        <div>
-            <h5 class="mb-0 text-white"><i class="fas fa-list-alt me-2"></i>Data Kategori Asset</h5>
-            <p class="mb-0 text-white-50">Kelola data kategori asset anda</p>
+<div class="card">
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="mb-0"><i class="fas fa-list-alt me-2"></i>Data Kategori Asset</h5>
+                <p class="mb-0 text-white-50">Kelola data kategori asset anda</p>
+            </div>
+            <a href="{{ route('kategori_asset.create') }}" class="btn btn-light">
+                <i class="fas fa-plus-circle me-2"></i>Tambah Kategori Asset
+            </a>
         </div>
-        <a href="{{ route('kategori_asset.create') }}" class="btn btn-light">
-            <i class="fas fa-plus-circle me-2"></i>Tambah Kategori Asset
-        </a>
     </div>
-    
-    <div class="p-4">
+
+    <div class="card-body">
         @include('components.alert')
-        
-        <div class="table-container">
-            <table id="kategoriTable" class="table table-hover">
+
+        <div class="table-responsive">
+            <table class="table table-hover" id="kategoriTable" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Kode Kategori Asset</th>
-                        <th>Kategori Asset</th>
-                        <th>Aksi</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-hashtag me-2"></i>No</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-tag me-2"></i>Kode Kategori Asset</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-box me-2"></i>Kategori Asset</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-cog me-2"></i>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,19 +77,21 @@
                         <td>{{ $kategori->kode_kategori_asset }}</td>
                         <td>{{ $kategori->kategori_asset }}</td>
                         <td>
-                            <form action="{{ route('kategori_asset.destroy',$kategori->id_kategori_asset) }}" method="POST" class="d-inline action-buttons">
-                                <a href="{{ route('kategori_asset.show',$kategori->id_kategori_asset) }}" class="btn btn-info btn-sm" title="Lihat Detail">
+                            <div class="btn-group">
+                                <a href="{{ route('kategori_asset.show', $kategori->id_kategori_asset) }}" class="btn btn-info btn-action" title="Lihat Detail">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('kategori_asset.edit',$kategori->id_kategori_asset) }}" class="btn btn-warning btn-sm" title="Edit">
+                                <a href="{{ route('kategori_asset.edit', $kategori->id_kategori_asset) }}" class="btn btn-warning btn-action" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm delete-btn" title="Hapus">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
+                                <form action="{{ route('kategori_asset.destroy', $kategori->id_kategori_asset) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-action delete-btn" title="Hapus">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
@@ -78,48 +105,57 @@
 @push('scripts')
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
-$(document).ready(function() {
-    // Initialize DataTable
-    $('#kategoriTable').DataTable({
-        responsive: true,
-        order: [[0, 'asc']],
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
-        }
-    });
-
-    // Delete confirmation using SweetAlert2
-    $(document).on('click', '.delete-btn', function(e) {
-        e.preventDefault();
-        let form = $(this).closest('form');
-        
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Data yang dihapus tidak dapat dikembalikan!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
+    $(document).ready(function () {
+        $('#kategoriTable').DataTable({
+            scrollX: true,
+            scrollCollapse: true,
+            autoWidth: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
+            },
+            columnDefs: [
+                {
+                    targets: '_all',
+                    className: 'px-3'
+                }
+            ],
+            fixedHeader: true,
+            responsive: false,
+            paging: true,
+            ordering: true,
+            info: true,
+            lengthChange: true,
+            searching: true,
+            initComplete: function (settings, json) {
+                $(this).closest('.dataTables_wrapper').find('.dataTables_scrollBody').css({
+                    'max-height': '500px',
+                    'overflow-y': 'auto',
+                    'overflow-x': 'auto'
+                });
             }
         });
-    });
 
-    // Success message animation
-    if ($('.alert-success').length > 0) {
-        $('..alert-success').addClass('animate__animated animate__fadeInDown');
-        setTimeout(function() {
-            $('.alert-success').addClass('animate__fadeOutUp');
-        }, 3000);
-    }
-});
+        $('.delete-btn').click(function (e) {
+            e.preventDefault();
+            let form = $(this).closest('form');
+
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
 </script>
 @endpush

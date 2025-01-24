@@ -1,81 +1,71 @@
 @extends('layouts.admin')
+
 @section('styles')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
 <style>
-    .distributor-card {
-        transition: transform 0.2s ease;
-        overflow: hidden;
+    .btn-action {
+        width: 35px;
+        height: 35px;
+        padding: 5px;
+        margin: 2px;
     }
-    .distributor-header {
-        background: linear-gradient(135deg, var(--primary) 0%, #2a52be 100%);
+    .card-header {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         color: white;
-        border: none;
     }
-    .table-container {
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        padding: 20px;
+    .table > thead {
+        background-color: #f8f9fc;
     }
-    .table thead th {
-        background: #f8f9fa;
-        color: #344767;
-        font-weight: 600;
-        border: none;
+    /* Tambahan style untuk scroll */
+    .dataTables_wrapper {
+        width: 100%;
+        overflow-x: auto;
+        position: relative;
     }
-    .table tbody tr {
-        transition: all 0.2s;
+    .dataTables_scrollBody {
+        overflow-x: auto;
+        width: 100%;
     }
-    .table tbody tr:hover {
-        background-color: #f8f9fa;
-        transform: translateY(-2px);
+    .table {
+        margin-bottom: 0;
+        width: 100% !important;
     }
-    .action-buttons .btn {
-        width: 32px;
-        height: 32px;
-        padding: 0;
-        line-height: 32px;
-        text-align: center;
-        margin: 0 2px;
-        border-radius: 8px;
-        transition: all 0.2s;
-    }
-    .action-buttons .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    .alert {
-        border-radius: 10px;
-        border: none;
+    .table th,
+    .table td {
+        white-space: nowrap;
+        vertical-align: middle;
     }
 </style>
 @endsection
 
 @section('content')
-<div class="distributor-card bg-white rounded-xl shadow-sm">
-    <div class="distributor-header p-4 d-flex justify-content-between align-items-center rounded-top">
-        <div>
-            <h5 class="mb-0 text-white">Data Distributor</h5>
-            <p class="mb-0 text-white-50">Kelola data distributor anda</p>
+<div class="card">
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="mb-0"><i class="fas fa-user me-2"></i>Data Distributor</h5>
+                <p class="mb-0 text-white-50">Kelola data distributor anda</p>
+            </div>
+            <a href="{{ route('distributor.create') }}" class="btn btn-light">
+                <i class="fas fa-plus-circle me-2"></i>Tambah Distributor
+            </a>
         </div>
-        <a href="{{ route('distributor.create') }}" class="btn btn-light">
-            <i class="fas fa-plus-circle me-2"></i>Tambah Distributor
-        </a>
     </div>
     
-    <div class="p-4">
+    <div class="card-body">
         @include('components.alert')
         
-        <div class="table-container">
+        <div class="table-responsive">
             <table id="distributorsTable" class="table table-hover">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Nama Distributor</th>
-                        <th>Alamat</th>
-                        <th>No. Telepon</th>
-                        <th>Email</th>
-                        <th>Keterangan</th>
-                        <th>Aksi</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-hashtag me-2"></i>No</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-user me-2"></i>Nama Distributor</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-map-marker-alt me-2"></i>Alamat</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-phone me-2"></i>No. Telepon</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-envelope me-2"></i>Email</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-info-circle me-2"></i>Keterangan</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-cog me-2"></i>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,19 +78,21 @@
                         <td>{{ $distributor->email }}</td>
                         <td>{{ $distributor->keterangan }}</td>
                         <td>
-                            <form action="{{ route('distributor.destroy',$distributor->id_distributor) }}" method="POST" class="d-inline action-buttons">
-                                <a href="{{ route('distributor.show',$distributor->id_distributor) }}" class="btn btn-info btn-sm" title="Lihat Detail">
+                            <div class="btn-group">
+                                <a href="{{ route('distributor.show',$distributor->id_distributor) }}" class="btn btn-info btn-action" title="Lihat Detail">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('distributor.edit',$distributor->id_distributor) }}" class="btn btn-warning btn-sm" title="Edit">
+                                <a href="{{ route('distributor.edit',$distributor->id_distributor) }}" class="btn btn-warning btn-action" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm delete-btn" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" title="Hapus">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
+                                <form action="{{ route('distributor.destroy',$distributor->id_distributor) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-action delete-btn" title="Hapus">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
@@ -148,14 +140,6 @@ $(document).ready(function() {
             }
         });
     });
-
-    // Success message animation
-    if ($('.alert-success').length > 0) {
-        $('.alert-success').addClass('animate__animated animate__fadeInDown');
-        setTimeout(function() {
-            $('.alert-success').addClass('animate__fadeOutUp');
-        }, 3000);
-    }
 });
 </script>
 @endpush

@@ -30,10 +30,6 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(): View
-    {
-        return view('home');
-    }
 
     /**
      * Show the application dashboard.
@@ -42,7 +38,26 @@ class HomeController extends Controller
      */
     public function adminHome(): View
     {
+        // Additional statistics
+        $totalKategori = KategoriAsset::count();
+        $totalLokasi = Lokasi::count();
+        $totalDistributor = Distributor::count();
+        $totalMerk = Merk::count();
+        
+        // Monthly calculations
+        $bulanIni = now()->month;
+        $tahunIni = now()->year;
+        
+        $pengadaanBulanIni = Pengadaan::whereMonth('created_at', $bulanIni)
+            ->whereYear('created_at', $tahunIni)
+            ->count();
+            
+        $depresiasBulanIni = HitungDepresiasi::whereMonth('created_at', $bulanIni)
+            ->whereYear('created_at', $tahunIni)
+            ->count();
+
         $data = [
+            // Existing counts
             'totalMasterBarang' => MasterBarang::count(),
             'totalPengadaan' => Pengadaan::count(),
             'totalDepresiasi' => HitungDepresiasi::count(),
@@ -51,9 +66,15 @@ class HomeController extends Controller
             'totalKategori' => KategoriAsset::count(),
             'totalMerk' => Merk::count(),
             'totalUsers' => User::count(),
+            
+            // Monthly statistics
+            'pengadaanBulanIni' => $pengadaanBulanIni,
+            'depresiasBulanIni' => $depresiasBulanIni,
+            
+            // Existing data
             'barangTerbaru' => MasterBarang::latest()->take(5)->get(),
-            'recentPengadaan' => Pengadaan::with(['masterBarang'])->latest()->take(5)->get(),  // Changed from pengadaanTerbaru
-            'recentDepresiasi' => HitungDepresiasi::with(['pengadaan.masterBarang'])->latest()->take(5)->get(),  // Add this line
+            'recentPengadaan' => Pengadaan::with(['masterBarang'])->latest()->take(5)->get(),
+            'recentDepresiasi' => HitungDepresiasi::with(['pengadaan.masterBarang'])->latest()->take(5)->get(),
         ];
 
         return view('adminHome', $data);
