@@ -69,6 +69,36 @@
             transform: translateY(0);
         }
     }
+
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    @media (max-width: 768px) {
+        .detail-header,
+        .detail-body {
+            min-width: auto;
+            padding: 15px;
+        }
+
+        .info-group {
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+
+        .col-md-6 {
+            padding: 0 10px;
+        }
+
+        .table {
+            font-size: 0.9rem;
+        }
+
+        .table td, .table th {
+            padding: 0.5rem;
+        }
+    }
 </style>
 @endsection
 
@@ -132,7 +162,7 @@
 
         <div class="mt-4">
             <h5>Simulasi Penyusutan</h5>
-            <div class="table-responsive">
+            <div class="table-container">
                 <table class="table table-bordered">
                     <thead>
                         <tr>

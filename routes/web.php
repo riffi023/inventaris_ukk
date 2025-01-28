@@ -35,7 +35,7 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:user'])->group(function () {
 
-    Route::get('/home', [UserController::class, 'index'])->name('user.home');
+    Route::get('/home', [HomeController::class, 'userHome'])->name('user.home');
 
     // Add these routes for user depresiasi
     Route::get('/user/hitung-depresiasi', [UserHitungDepresiasiController::class, 'index'])
@@ -50,6 +50,9 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     // Add this route for Opname
     Route::get('/user/opname', [UserOpnameController::class, 'index'])->name('user.opname.index');
     Route::get('/user/opname/{opname}', [UserOpnameController::class, 'show'])->name('user.opname.show');
+
+    // Add this route for History
+    Route::get('/user/history', [UserController::class, 'getUserHistory'])->name('user.history');
 });
 
 
@@ -116,3 +119,5 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     // Add this route for Monitoring
     Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring.index');
 });
+
+Route::get('/active-sessions', [UserController::class, 'getActiveSessions'])->middleware('auth');

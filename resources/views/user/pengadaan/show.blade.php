@@ -74,6 +74,23 @@
             transform: translateY(0);
         }
     }
+
+    @media (max-width: 768px) {
+        .detail-header,
+        .detail-body {
+            min-width: auto;
+            padding: 15px;
+        }
+
+        .info-group {
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+
+        .col-md-6 {
+            padding: 0 10px;
+        }
+    }
 </style>
 @endsection
 

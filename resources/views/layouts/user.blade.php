@@ -104,12 +104,50 @@
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.85rem;
         }
+
+        /* Responsive Sidebar */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-260px);
+                z-index: 1040;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .content-wrapper {
+                margin-left: 0;
+            }
+            
+            .sidebar-toggle {
+                display: block !important;
+            }
+        }
+
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1050;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
     </style>
 
     @yield('styles')
 </head>
 
 <body class="bg-gray-50">
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
     <div class="wrapper">
         <!-- Sidebar -->
         <nav class="sidebar">
@@ -214,6 +252,27 @@
             $('.nav-link').each(function () {
                 if (window.location.href.includes($(this).attr('href'))) {
                     $(this).addClass('active');
+                }
+            });
+
+            // Sidebar Toggle
+            $('#sidebarToggle').click(function() {
+                $('.sidebar').toggleClass('active');
+            });
+
+            // Close sidebar when clicking outside on mobile
+            $(document).click(function(e) {
+                if ($(window).width() < 992) {
+                    if (!$(e.target).closest('.sidebar').length && !$(e.target).closest('#sidebarToggle').length) {
+                        $('.sidebar').removeClass('active');
+                    }
+                }
+            });
+
+            // Handle window resize
+            $(window).resize(function() {
+                if ($(window).width() > 992) {
+                    $('.sidebar').removeClass('active');
                 }
             });
         });

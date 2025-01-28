@@ -21,6 +21,17 @@
         margin-bottom: 10px;
         border-radius: 8px;
     }
+
+    .history-card {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .history-item {
+        padding: 10px;
+        border-bottom: 1px solid #eaeaea;
+    }
 </style>
 @endsection
 

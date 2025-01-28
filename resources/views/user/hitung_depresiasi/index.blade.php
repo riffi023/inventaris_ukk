@@ -2,11 +2,13 @@
 
 @section('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css">
 <style>
     .card {
         border-radius: 15px;
         border: none;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        margin: 0.5rem;
     }
 
     .card-header {
@@ -14,11 +16,22 @@
         color: white;
         border-radius: 15px 15px 0 0 !important;
         border: none;
+        padding: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .card-header h5 {
+            font-size: 1rem;
+        }
+        .card-header p {
+            font-size: 0.8rem;
+        }
     }
 
     .table th {
         background-color: #f8f9fa;
         font-weight: 600;
+        white-space: nowrap;
     }
 
     .btn-group .btn {
@@ -27,11 +40,23 @@
     }
 
     .btn-action {
-        width: 32px;
-        height: 32px;
+        width: 38px;
+        height: 38px;
         padding: 0;
-        line-height: 32px;
+        line-height: 38px;
         text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .table {
+            font-size: 0.9rem;
+        }
+        
+        .btn-action {
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+        }
     }
 </style>
 @endsection
@@ -98,12 +123,20 @@
 @push('scripts')
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#hitungDepresiasiTable').DataTable({
+                responsive: true,
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
-                }
+                },
+                columnDefs: [
+                    { responsivePriority: 1, targets: [0, 1, 7] }, // Kolom yang selalu ditampilkan
+                    { responsivePriority: 2, targets: [5, 6] },    // Kolom prioritas kedua
+                    { responsivePriority: 3, targets: '_all' }     // Sisanya
+                ]
             });
         });
     </script>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -227,6 +227,66 @@
             background: rgba(255, 255, 255, 0.7);
             z-index: 1;
         }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 40;
+            }
+
+            .content-wrapper {
+                margin-left: 0;
+                padding-top: 4rem;
+            }
+
+            .nav-item {
+                padding: 0.5rem;
+            }
+
+            .sidebar-brand {
+                padding: 1rem;
+            }
+
+            .nav-link {
+                padding: 0.5rem;
+            }
+
+            /* Improve touch targets on mobile */
+            .nav-link, button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            /* Adjust card layouts for mobile */
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Improve table responsiveness */
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        /* Add backdrop for mobile sidebar */
+        .sidebar-backdrop {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar.active + .sidebar-backdrop {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 30;
+            }
+        }
     </style>
 
     @yield('styles')
@@ -234,8 +294,13 @@
 
 <body class="bg-gray-50">
     <div class="wrapper">
-        <!-- Sidebar -->
-        <nav class="sidebar">
+        <!-- Mobile Toggle Button -->
+        <button id="sidebarToggle" class="md:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-lg shadow-lg">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Sidebar with mobile responsive class -->
+        <nav class="sidebar transform md:translate-x-0 transition-transform duration-300 ease-in-out" id="sidebar">
             <div class="sidebar-brand">
                 <i class="fas fa-box-open mr-2"></i>
                 Inventaris
@@ -408,8 +473,8 @@
             </div>
         </nav>
 
-        <!-- Content -->
-        <div class="content-wrapper">
+        <!-- Content with mobile responsive class -->
+        <div class="content-wrapper md:ml-64 transition-all duration-300" id="content">
             <div class="container-fluid">
                 @yield('content')
             </div>
@@ -448,6 +513,41 @@
                 function () { $(this).addClass('bg-light'); },
                 function () { $(this).removeClass('bg-light'); }
             );
+
+            // Mobile Sidebar Toggle
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            let isSidebarOpen = false;
+
+            function toggleSidebar() {
+                isSidebarOpen = !isSidebarOpen;
+                sidebar.classList.toggle('-translate-x-full');
+                content.classList.toggle('md:ml-64');
+                content.classList.toggle('ml-0');
+            }
+
+            sidebarToggle.addEventListener('click', toggleSidebar);
+
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth < 768 && isSidebarOpen && 
+                    !sidebar.contains(e.target) && 
+                    !sidebarToggle.contains(e.target)) {
+                    toggleSidebar();
+                }
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    sidebar.classList.remove('-translate-x-full');
+                    content.classList.add('md:ml-64');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    content.classList.remove('md:ml-64');
+                }
+            });
         });
     </script>
     @stack('scripts')

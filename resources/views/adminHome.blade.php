@@ -240,6 +240,72 @@
         .stat-icon {
             transition: all 0.3s ease;
         }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(1, 1fr) !important;
+            }
+
+            .stat-card {
+                margin-bottom: 1rem;
+            }
+
+            .table-responsive {
+                margin: 0 -1rem;
+                padding: 0 1rem;
+                width: calc(100% + 2rem);
+            }
+
+            .welcome-toast {
+                width: 90%;
+                right: 5%;
+                top: 1rem;
+            }
+
+            /* Adjust card padding for mobile */
+            .p-6 {
+                padding: 1rem;
+            }
+
+            /* Make text smaller on mobile */
+            .text-3xl {
+                font-size: 1.5rem;
+            }
+
+            /* Improve table scrolling on mobile */
+            .overflow-x-auto {
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+            }
+
+            /* Stack table headers on mobile */
+            @media (max-width: 480px) {
+                table thead {
+                    display: none;
+                }
+
+                table tr {
+                    display: block;
+                    margin-bottom: 1rem;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 0.5rem;
+                }
+
+                table td {
+                    display: block;
+                    text-align: right;
+                    padding: 0.5rem;
+                    border: none;
+                }
+
+                table td::before {
+                    content: attr(data-label);
+                    float: left;
+                    font-weight: bold;
+                }
+            }
+        }
     </style>
 @endpush
 
@@ -410,6 +476,38 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // Add mobile-specific initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if device is mobile
+            const isMobile = window.innerWidth <= 768;
+
+            // Adjust chart options for mobile
+            if (isMobile) {
+                salesChart.options.maintainAspectRatio = true;
+                salesChart.options.aspectRatio = 1.5;
+                salesChart.update();
+            }
+
+            // Add touch support for card hover effects
+            const cards = document.querySelectorAll('.stat-card');
+            cards.forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.classList.add('active');
+                }, { passive: true });
+                
+                card.addEventListener('touchend', function() {
+                    this.classList.remove('active');
+                }, { passive: true });
+            });
+        });
+
+        // Handle orientation change
+        window.addEventListener('orientationchange', function() {
+            setTimeout(function() {
+                window.location.reload();
+            }, 200);
         });
     </script>
 @endpush

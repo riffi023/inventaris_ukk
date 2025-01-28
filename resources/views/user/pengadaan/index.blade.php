@@ -4,6 +4,7 @@
 
 @section('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.min.css">
 <style>
     .btn-action {
         width: 35px;
@@ -23,13 +24,7 @@
 
     .dataTables_wrapper {
         width: 100%;
-        overflow-x: auto;
         position: relative;
-    }
-
-    .dataTables_scrollBody {
-        overflow-x: auto;
-        width: 100%;
     }
 
     .table {
@@ -37,10 +32,25 @@
         width: 100% !important;
     }
 
-    .table th,
-    .table td {
-        white-space: nowrap;
-        vertical-align: middle;
+    @media screen and (max-width: 768px) {
+        .table th,
+        .table td {
+            min-width: 100px;
+        }
+        
+        .card-body {
+            padding: 0.5rem;
+        }
+        
+        .btn-action {
+            width: 30px;
+            height: 30px;
+            padding: 3px;
+        }
+        
+        .dtr-details {
+            width: 100%;
+        }
     }
 </style>
 @endsection
@@ -128,12 +138,23 @@
 @push('scripts')
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap5.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#pengadaanTable').DataTable({
-            scrollX: true,
-            scrollCollapse: true,
-            autoWidth: false,
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.modal({
+                        header: function (row) {
+                            return 'Detail Pengadaan';
+                        }
+                    }),
+                    renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                        tableClass: 'table'
+                    })
+                }
+            },
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
             },
@@ -141,27 +162,23 @@
                 {
                     targets: '_all',
                     className: 'px-3'
+                },
+                {
+                    responsivePriority: 1,
+                    targets: [0, 1, 2, 17] // No, Kode, Barang, dan Aksi
+                },
+                {
+                    responsivePriority: 2,
+                    targets: [12, 13, 15] // Harga, Nilai, dan Status
                 }
             ],
-            fixedHeader: true,
-            responsive: false,
-            paging: true,
             ordering: true,
             info: true,
+            paging: true,
             lengthChange: true,
             searching: true,
-            initComplete: function (settings, json) {
-                $(this).closest('.dataTables_wrapper').find('.dataTables_scrollBody').css({
-                    'max-height': '500px',
-                    'overflow-y': 'auto',
-                    'overflow-x': 'auto'
-                });
-            }
+            autoWidth: false
         });
-
-        function formatRupiah(angka) {
-            return 'Rp ' + new Intl.NumberFormat('id-ID').format(angka);
-        }
     });
 </script>
 @endpush

@@ -30,6 +30,6 @@ class UserController extends Controller
         $pengadaan = Pengadaan::with('masterBarang')->orderBy('created_at', 'desc')->take(5)->get();
         $opnames = Opname::with('pengadaan.masterBarang')->orderBy('created_at', 'desc')->take(5)->get();
 
-        return view('user.home', compact('pengadaanCount', 'opnameCount', 'depresiasiCount', 'depresiasi', 'pengadaan', 'opnames'));
+        return view('home', compact('pengadaanCount', 'opnameCount', 'depresiasiCount', 'depresiasi', 'pengadaan', 'opnames'));
     }
 }

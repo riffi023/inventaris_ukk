@@ -12,6 +12,7 @@ use App\Models\Lokasi;
 use App\Models\Distributor;
 use App\Models\KategoriAsset;
 use App\Models\Merk;
+use App\Models\Opname;
 
 class HomeController extends Controller
 {
@@ -36,6 +37,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function userHome()
+    {
+        $pengadaanCount = Pengadaan::count();
+        $opnameCount = Opname::count();
+        $depresiasiCount = HitungDepresiasi::count();
+
+        // Ambil data untuk tabel
+        $depresiasi = HitungDepresiasi::with('pengadaan.masterBarang')->orderBy('tgl_hitung_depresiasi', 'desc')->take(5)->get();
+        $pengadaan = Pengadaan::with('masterBarang')->orderBy('created_at', 'desc')->take(5)->get();
+        $opnames = Opname::with('pengadaan.masterBarang')->orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('user.home', compact('pengadaanCount', 'opnameCount', 'depresiasiCount', 'depresiasi', 'pengadaan', 'opnames'));
+    }
+     
     public function adminHome(): View
     {
         // Additional statistics

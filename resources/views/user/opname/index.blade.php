@@ -4,21 +4,60 @@
 
 @section('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css">
 <style>
-    .btn-action {
-        width: 35px;
-        height: 35px;
-        padding: 5px;
-        margin: 2px;
+    .card {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        margin: 0.5rem;
     }
 
     .card-header {
         background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         color: white;
+        border-radius: 15px 15px 0 0 !important;
+        padding: 1rem;
     }
 
-    .table>thead {
-        background-color: #f8f9fc;
+    @media (max-width: 768px) {
+        .card-header h5 {
+            font-size: 1rem;
+        }
+        .card-header p {
+            font-size: 0.8rem;
+        }
+        .table {
+            font-size: 0.9rem;
+        }
+    }
+
+    .btn-action {
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        line-height: 38px;
+        text-align: center;
+        margin: 2px;
+    }
+
+    .table th {
+        background-color: #f8f9fa;
+        white-space: nowrap;
+        font-weight: 600;
+    }
+
+    .badge {
+        font-size: 0.8rem;
+        padding: 0.4em 0.8em;
+    }
+
+    @media (max-width: 768px) {
+        .btn-action {
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+        }
     }
 </style>
 @endsection
@@ -64,7 +103,7 @@
                                         <span class="badge bg-danger">{{ $opname->kondisi }}</span>
                                     @endif
                                 </td>
-                                <td>{{ number_format($opname->pengadaan->stock_barang, 0, ',', '.') }}</td>
+                                <td>{{ number_format($opname->pengadaan->stock_barang, 0, ',', '.') }} {{ $opname->pengadaan->satuan->nama_satuan }}</td>
                                 <td>{{ $opname->keterangan }}</td>
                                 <td>
                                     <a href="{{ route('user.opname.show', $opname) }}" class="btn btn-info btn-sm">
@@ -88,14 +127,25 @@
 @push('scripts')
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#opnameTable').DataTable({
-                scrollX: true,
-                scrollCollapse: true,
-                autoWidth: false,
+                responsive: true,
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
+                },
+                columnDefs: [
+                    { responsivePriority: 1, targets: [0, 1, 6] },  // Kolom yang selalu ditampilkan
+                    { responsivePriority: 2, targets: [3, 4] },     // Kolom prioritas kedua
+                    { responsivePriority: 3, targets: '_all' }      // Sisanya
+                ],
+                order: [[2, 'desc']],
+                initComplete: function (settings, json) {
+                    $(this).closest('.dataTables_wrapper').find('.dataTables_scrollBody').css({
+                        'max-height': '500px'
+                    });
                 }
             });
         });
