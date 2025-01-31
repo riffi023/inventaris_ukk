@@ -132,7 +132,7 @@
     <script>
         $(document).ready(function () {
             $('#opnameTable').DataTable({
-                responsive: true,
+                responsive: false,
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
                 },

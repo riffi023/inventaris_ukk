@@ -227,7 +227,7 @@
     <script>
         $(document).ready(function () {
             const commonConfig = {
-                responsive: {
+                responsive: false{
                     details: {
                         display: $.fn.dataTable.Responsive.display.modal({
                             header: function (row) {
