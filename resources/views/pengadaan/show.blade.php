@@ -338,6 +338,39 @@
             </div>
         </div>
 
+        <div class="mt-4">
+            <h5>Simulasi Penyusutan</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Bulan ke-</th>
+                            <th>Nilai Sisa</th>
+                            <th>Penyusutan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $nilaiBarang = $pengadaan->nilai_barang; // Ganti dengan nilai barang yang sesuai
+                            $lamaDepresiasi = $pengadaan->depresiasi->lama_depresiasi; // Ambil lama depresiasi
+                            $penyusutanPerBulan = $nilaiBarang / $lamaDepresiasi; // Hitung penyusutan per bulan
+                        @endphp
+                        @for ($i = 1; $i <= min($lamaDepresiasi, 12); $i++)
+                            @php
+                                $nilaiSisa = max(0, $nilaiBarang - ($penyusutanPerBulan * $i));
+                            @endphp
+                            <tr>
+                                <td>{{ $i }}</td>
+                                <td>Rp {{ number_format($nilaiSisa, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($penyusutanPerBulan, 0, ',', '.') }}</td>
+                            </tr>
+                        @endfor
+                    </tbody>
+                </table>
+            </div>
+            <small class="text-muted">* Menampilkan 12 bulan pertama dari total {{ $lamaDepresiasi }} bulan</small>
+        </div>
+
         <div class="text-center mt-4">
             <a href="{{ route('pengadaan.index') }}" class="btn btn-primary">
                 <i class="fas fa-arrow-left me-2"></i>Kembali

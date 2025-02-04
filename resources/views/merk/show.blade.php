@@ -2,46 +2,35 @@
 
 @section('styles')
 <style>
-    .detail-card {
-        background: white;
+    .card {
         border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        animation: slideUp 0.5s ease-out;
-    }
-    .btn-primary {
-        background: linear-gradient(135deg, var(--primary) 0%, #2a52be 100%);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
         border: none;
-        padding: 12px 35px;
-        transition: all 0.3s ease;
     }
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    .detail-header {
-        background: linear-gradient(45deg, #4e73df, #36b9cc);
+
+    .card-header {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%); /* Changed to match CRUD gradient */
         color: white;
-        padding: 20px;
-        border: none;
+        border-radius: 15px 15px 0 0 !important;
+        padding: 15px 20px;
     }
-    .detail-body {
-        padding: 30px;
-    }
+
     .info-group {
-        background: #f8f9fc;
+        background: #f8f9fa;
         border-radius: 12px;
         padding: 20px;
         margin-bottom: 20px;
         transition: all 0.3s ease;
         border-left: 4px solid #4e73df;
-        animation: fadeIn 0.5s ease-in-out;
+        margin-right: 15px;
     }
+
     .info-group:hover {
         background: white;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         transform: translateY(-2px);
     }
+
     .info-label {
         color: #4a5568;
         font-size: 0.875rem;
@@ -50,73 +39,108 @@
         display: flex;
         align-items: center;
     }
+
     .info-label i {
         margin-right: 8px;
-        color: var(--primary);
+        color: #4e73df;
     }
+
     .info-value {
-        color: #2d3748;
-        font-size: 1rem;
-        padding: 8px;
         background: white;
+        padding: 15px;
         border-radius: 8px;
-        border: 1px solid #e2e8f0;
+        margin: 0;
+        border: 1px solid #e3e6f0;
+        font-size: 0.9rem;
     }
+
+    .btn {
+        padding: 12px 25px;
+        font-weight: 600;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        border: none;
+    }
+
+    .btn-secondary {
+        background: #858796;
+        border: none;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
     .detail-item {
         animation: slideIn 0.3s ease-out forwards;
         opacity: 0;
         transform: translateY(20px);
     }
+
     @keyframes slideIn {
         to {
             opacity: 1;
             transform: translateY(0);
         }
     }
-    .info-group strong {
-        color: #4e73df;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
 </style>
 @endsection
 
 @section('content')
-<div class="detail-card">
-    <div class="detail-header">
+<div class="card">
+    <div class="card-header">
         <h5 class="mb-0">
-            <i class="fas fa-tag me-2"></i>Detail Merk
+            <i class="fas fa-eye me-2"></i>Detail Merk
         </h5>
-        <p class="mb-0 text-white-50">Informasi lengkap untuk merk #{{ $merk->id_merk }}</p>
+        <p class="mb-0 text-white-50">Informasi detail merk #{{ $merk->id_merk }}</p>
     </div>
-    
-    <div class="detail-body">
+
+    <div class="card-body">
         <div class="row">
             <div class="col-md-6">
                 <div class="info-group detail-item">
-                    <div class="info-label">
-                        <i class="fas fa-tag"></i>Nama Merk
-                    </div>
-                    <div class="info-value">
-                        {{ $merk->merk }}
-                    </div>
+                    <strong class="info-label">
+                        <i class="fas fa-tag"></i>
+                        Nama Merk
+                    </strong>
+                    <p class="info-value">{{ $merk->merk }}</p>
+                </div>
+
+                <div class="info-group detail-item">
+                    <strong class="info-label">
+                        <i class="fas fa-info-circle"></i>
+                        Keterangan
+                    </strong>
+                    <p class="info-value">{{ $merk->keterangan }}</p>
                 </div>
             </div>
+
             <div class="col-md-6">
                 <div class="info-group detail-item">
-                    <div class="info-label">
-                        <i class="fas fa-info-circle"></i>Keterangan
-                    </div>
-                    <div class="info-value">
-                        {{ $merk->keterangan }}
-                    </div>
+                    <strong class="info-label">
+                        <i class="fas fa-clock"></i>
+                        Dibuat Pada
+                    </strong>
+                    <p class="info-value">{{ $merk->created_at->format('d F Y H:i') }}</p>
+                </div>
+
+                <div class="info-group detail-item">
+                    <strong class="info-label">
+                        <i class="fas fa-history"></i>
+                        Diperbarui Pada
+                    </strong>
+                    <p class="info-value">{{ $merk->updated_at->format('d F Y H:i') }}</p>
                 </div>
             </div>
         </div>
 
         <div class="text-center mt-4">
-            <a href="{{ route('merk.index') }}" class="btn btn-primary">
+            <a href="{{ route('merk.index') }}" class="btn btn-secondary me-2">
                 <i class="fas fa-arrow-left me-2"></i>Kembali
             </a>
         </div>

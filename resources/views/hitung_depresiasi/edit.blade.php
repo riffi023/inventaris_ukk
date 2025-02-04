@@ -123,6 +123,30 @@
                 </a>
             </div>
         </form>
+
+        <!-- Preview Depresiasi -->
+        <div class="mt-4 preview-section">
+            <h5>Simulasi Penyusutan</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Bulan ke-</th>
+                            <th>Nilai Sisa</th>
+                            <th>Penyusutan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="previewTable">
+                        <tr>
+                            <td colspan="3" class="text-center" id="tableMessage">
+                                Silakan isi durasi bulan untuk melihat simulasi penyusutan
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <small class="text-muted">* Menampilkan 12 bulan pertama</small>
+        </div>
     </div>
 </div>
 @endsection
@@ -130,14 +154,55 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
+    function calculateDepreciation() {
+        let nilaiBarang = parseFloat($('#nilai_barang').val()) || 0;
+        let durasi = parseInt($('#durasi').val()) || 0;
+        
+        if (nilaiBarang > 0 && durasi > 0) {
+            let depresiasiBulan = nilaiBarang / durasi;
+            updatePreviewTable(nilaiBarang, depresiasiBulan, durasi);
+        } else {
+            $('#previewTable').html('<tr><td colspan="3" class="text-center">Silakan isi durasi bulan untuk melihat simulasi penyusutan</td></tr>');
+        }
+    }
+
+    function updatePreviewTable(nilaiBarang, depresiasiBulan, durasi) {
+        let html = '';
+        let maxMonths = Math.min(durasi, 12);
+        
+        for (let i = 1; i <= maxMonths; i++) {
+            let nilaiSisa = nilaiBarang - (depresiasiBulan * i);
+            nilaiSisa = Math.max(0, nilaiSisa);
+            
+            html += `<tr>
+                <td>${i}</td>
+                <td>Rp ${formatNumber(nilaiSisa)}</td>
+                <td>Rp ${formatNumber(depresiasiBulan)}</td>
+            </tr>`;
+        }
+        
+        $('#previewTable').html(html);
+    }
+
+    function formatNumber(number) {
+        return new Intl.NumberFormat('id-ID').format(Math.round(number));
+    }
+
     $('#id_pengadaan').change(function() {
         let harga = $(this).find(':selected').data('harga');
         if(harga) {
             $('#nilai_barang').val(harga);
+            calculateDepreciation();
         } else {
             $('#nilai_barang').val('');
+            $('.preview-section').addClass('d-none');
         }
     });
+
+    $('#nilai_barang, #durasi').on('input', calculateDepreciation);
+    
+    // Calculate initial preview
+    calculateDepreciation();
 });
 </script>
 @endpush

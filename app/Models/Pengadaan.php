@@ -25,7 +25,9 @@ class Pengadaan extends Model
         'harga_barang',
         'nilai_barang',
         'depresiasi_barang',
-        'stock_barang'
+        'stock_barang',
+        'keterangan',    // Add this
+        'status_login'   // Add this
     ];
 
     protected $dates = [
@@ -89,17 +91,9 @@ class Pengadaan extends Model
         return 'Rp ' . number_format($this->depresiasi_barang, 0, ',', '.');
     }
 
-    public function hitungDepresiasi()
+    public function hitungDepresiasi($nilaiBarang, $lamaDepresiasi)
     {
-        $hargaBarang = (float) str_replace(['Rp', '.', ' '], '', $this->harga_barang);
-        $lamaDepresiasi = $this->depresiasi->lama_depresiasi;
-
-        if ($lamaDepresiasi > 0) {
-            $this->depresiasi_barang = $hargaBarang / $lamaDepresiasi;
-            $this->save();
-        }
-
-        return $this->depresiasi_barang;
+        return $lamaDepresiasi > 0 ? $nilaiBarang / $lamaDepresiasi : 0;
     }
 
     // Scopes

@@ -70,7 +70,7 @@
                     <tr>
                         <th class="text-nowrap px-3"><i class="fas fa-hashtag me-2"></i>No</th>
                         <th class="text-nowrap px-3"><i class="fas fa-calendar-alt me-2"></i>Lama Depresiasi</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-money-bill me-2"></i>Nilai Penyusutan/Bulan</th>
+                        
                         <th class="text-nowrap px-3"><i class="fas fa-info-circle me-2"></i>Keterangan</th>
                         <th class="text-nowrap px-3"><i class="fas fa-cog me-2"></i>Aksi</th>
                     </tr>
@@ -80,14 +80,6 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $depresiasi->lama_depresiasi }} Bulan</td>
-                                            <td>
-                                                @php
-                                                    $contohHarga = 1000000; // Contoh harga 1 juta
-                                                    $penyusutanPerBulan = $depresiasi->hitungPenyusutanPerBulan($contohHarga);
-                                                @endphp
-                                                Rp {{ number_format($penyusutanPerBulan, 0, ',', '.') }}
-                                                <small class="text-muted">/bulan</small>
-                                            </td>
                                             <td>{{ $depresiasi->keterangan }}</td>
                                             <td>
                                                 <form action="{{ route('depresiasi.destroy', $depresiasi->id_depresiasi) }}" method="POST"

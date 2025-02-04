@@ -16,6 +16,15 @@
     .card-header {
         background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         color: white;
+        padding: 15px 20px;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        border: none;
+        animation: fadeIn 0.5s ease-in-out;
     }
 
     .table>thead {
@@ -24,12 +33,25 @@
 
     .dataTables_wrapper {
         width: 100%;
+        overflow-x: auto;
         position: relative;
     }
 
     .table {
         margin-bottom: 0;
         width: 100% !important;
+    }
+
+    .table th,
+    .table td {
+        white-space: nowrap;
+        vertical-align: middle;
+        padding: 0.75rem;
+    }
+
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
     }
 
     @media screen and (max-width: 768px) {
@@ -143,18 +165,9 @@
 <script>
     $(document).ready(function () {
         $('#pengadaanTable').DataTable({
-            responsive: false{
-                details: {
-                    display: $.fn.dataTable.Responsive.display.modal({
-                        header: function (row) {
-                            return 'Detail Pengadaan';
-                        }
-                    }),
-                    renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                        tableClass: 'table'
-                    })
-                }
-            },
+            scrollX: true,
+            scrollCollapse: true,
+            autoWidth: false,
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
             },
@@ -172,12 +185,20 @@
                     targets: [12, 13, 15] // Harga, Nilai, dan Status
                 }
             ],
+            fixedHeader: true,
+            responsive: false,
+            paging: true,
             ordering: true,
             info: true,
-            paging: true,
             lengthChange: true,
             searching: true,
-            autoWidth: false
+            initComplete: function (settings, json) {
+                $(this).closest('.dataTables_wrapper').find('.dataTables_scrollBody').css({
+                    'max-height': '500px',
+                    'overflow-y': 'auto',
+                    'overflow-x': 'auto'
+                });
+            }
         });
     });
 </script>

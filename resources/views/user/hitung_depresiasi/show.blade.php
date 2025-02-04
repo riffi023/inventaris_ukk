@@ -99,6 +99,24 @@
             padding: 0.5rem;
         }
     }
+
+    /* Gaya untuk tabel simulasi penyusutan */
+    #simulasi-penyusutan .table {
+        background-color: #f8f9fc; /* Warna latar belakang tabel */
+    }
+
+    #simulasi-penyusutan .table th {
+        background-color: #4e73df; /* Warna latar belakang header tabel */
+        color: white; /* Warna teks header tabel */
+    }
+
+    #simulasi-penyusutan .table tbody tr:nth-child(even) {
+        background-color: #e9ecef; /* Warna latar belakang untuk baris genap */
+    }
+
+    #simulasi-penyusutan .table tbody tr:hover {
+        background-color: #d1e7fd; /* Warna latar belakang saat hover */
+    }
 </style>
 @endsection
 
@@ -162,7 +180,7 @@
 
         <div class="mt-4">
             <h5>Simulasi Penyusutan</h5>
-            <div class="table-container">
+            <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -173,10 +191,14 @@
                     </thead>
                     <tbody>
                         @for ($i = 1; $i <= min($depresiasi->durasi, 12); $i++)
+                            @php
+                                $nilaiSisa = $depresiasi->hitungNilaiSisaBulan($i);
+                                $penyusutan = $depresiasi->depresiasi_barang; // Ambil nilai depresiasi per bulan
+                            @endphp
                             <tr>
                                 <td>{{ $i }}</td>
-                                <td>Rp {{ number_format($depresiasi->hitungNilaiSisaBulan($i), 0, ',', '.') }}</td>
-                                <td>Rp {{ number_format($depresiasi->depresiasi_barang, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($nilaiSisa, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($penyusutan, 0, ',', '.') }}</td>
                             </tr>
                         @endfor
                     </tbody>

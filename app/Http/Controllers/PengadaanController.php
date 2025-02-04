@@ -21,6 +21,26 @@ class PengadaanController extends Controller
         return (float) str_replace('.', '', $number);
     }
 
+    private function generateKodePengadaan()
+    {
+        // Get latest pengadaan to generate the next code
+        $lastPengadaan = Pengadaan::orderBy('created_at', 'desc')->first();
+        
+        if (!$lastPengadaan) {
+            // If no pengadaan exists yet, start with PGD00001
+            return 'PGD00001';
+        }
+
+        // Get the numeric part of the last code
+        $lastNumber = (int) substr($lastPengadaan->kode_pengadaan, 3);
+        
+        // Increment and pad with zeros
+        $newNumber = str_pad($lastNumber + 1, 5, '0', STR_PAD_LEFT);
+        
+        // Return new code
+        return 'PGD' . $newNumber;
+    }
+
     public function index()
     {
         $pengadaans = Pengadaan::with([
@@ -70,6 +90,8 @@ class PengadaanController extends Controller
             'harga_barang' => 'required|string',
             'nilai_barang' => 'required|string',
             'stock_barang' => 'required|integer|min:0',
+            'keterangan' => 'required|string|max:255',  // Add this
+            'status_login' => 'required|in:0,1'         // Add this
         ]);
 
         // Format harga dan nilai barang
@@ -78,6 +100,9 @@ class PengadaanController extends Controller
 
         // Generate kode pengadaan
         $validated['kode_pengadaan'] = $this->generateKodePengadaan();
+
+        // Set default status if not provided
+        $validated['status_login'] = $request->status_login ?? '1';
 
         // Hitung depresiasi
         $depresiasi = Depresiasi::find($request->id_depresiasi);
@@ -103,6 +128,9 @@ class PengadaanController extends Controller
         $subKategoriAssets = SubKategoriAsset::all();
         $distributors = Distributor::all();
 
+        // Hitung depresiasi
+        $depresiasiBarang = $pengadaan->hitungDepresiasi($pengadaan->nilai_barang, $pengadaan->depresiasi->lama_depresiasi);
+
         return view('pengadaan.edit', compact(
             'pengadaan',
             'masterBarangs',
@@ -110,7 +138,8 @@ class PengadaanController extends Controller
             'merks',
             'satuans',
             'subKategoriAssets',
-            'distributors'
+            'distributors',
+            'depresiasiBarang'
         ));
     }
 
@@ -130,6 +159,8 @@ class PengadaanController extends Controller
             'harga_barang' => 'required|string',
             'nilai_barang' => 'required|string',
             'stock_barang' => 'required|integer|min:0',
+            'keterangan' => 'required|string|max:255',  // Add this
+            'status_login' => 'required|in:0,1'         // Add this
         ]);
 
         // Format harga dan nilai barang

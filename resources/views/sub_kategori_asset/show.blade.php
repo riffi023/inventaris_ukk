@@ -2,6 +2,19 @@
 
 @section('styles')
 <style>
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        border: none;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        color: white;
+        border-radius: 15px 15px 0 0 !important;
+        padding: 15px 20px;
+    }
+
     .detail-card {
         background: white;
         border-radius: 15px;
@@ -66,8 +79,8 @@
 @endsection
 
 @section('content')
-<div class="detail-card">
-    <div class="detail-header">
+<div class="card">
+    <div class="card-header">
         <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Detail Sub Kategori Asset</h5>
         <p class="mb-0 text-white-50">Informasi lengkap sub kategori asset</p>
     </div>

@@ -298,12 +298,58 @@
             theme: 'bootstrap4'
         });
 
-        // Format input harga dan nilai barang
-        $('#harga_barang, #nilai_barang').on('input', function() {
-            let value = $(this).val().replace(/[^\d]/g, '');
-            if (value) {
-                value = parseInt(value).toLocaleString('id-ID');
-                $(this).val('Rp ' + value);
+        // Format currency for harga_barang and nilai_barang
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp ' + rupiah : '');
+        }
+
+        // Event handler for harga_barang
+        $('#harga_barang').on('input', function(e) {
+            var value = $(this).val();
+            // Remove any previous 'Rp ' prefix and dots
+            value = value.replace(/^Rp /, '').replace(/\./g, '');
+            // Format the number
+            $(this).val('Rp ' + formatRupiah(value));
+        });
+
+        // Event handler for nilai_barang
+        $('#nilai_barang').on('input', function(e) {
+            var value = $(this).val();
+            // Remove any previous 'Rp ' prefix and dots
+            value = value.replace(/^Rp /, '').replace(/\./g, '');
+            // Format the number
+            $(this).val('Rp ' + formatRupiah(value));
+        });
+
+        // Before form submit, clean the currency format
+        $('#createForm').on('submit', function(e) {
+            // Clean harga_barang
+            var harga = $('#harga_barang').val().replace(/^Rp /, '').replace(/\./g, '');
+            $('#harga_barang').val(harga);
+
+            // Clean nilai_barang
+            var nilai = $('#nilai_barang').val().replace(/^Rp /, '').replace(/\./g, '');
+            $('#nilai_barang').val(nilai);
+
+            let tahun = $('#tahun_produksi').val();
+            let currentYear = new Date().getFullYear();
+            
+            if (tahun > currentYear) {
+                e.preventDefault();
+                alert('Tahun produksi tidak boleh lebih besar dari tahun sekarang');
+                return false;
             }
         });
 
@@ -314,18 +360,6 @@
                 value = value.slice(0, 4);
             }
             $(this).val(value);
-        });
-
-        // Validasi form sebelum submit
-        $('#createForm').on('submit', function(e) {
-            let tahun = $('#tahun_produksi').val();
-            let currentYear = new Date().getFullYear();
-            
-            if (tahun > currentYear) {
-                e.preventDefault();
-                alert('Tahun produksi tidak boleh lebih besar dari tahun sekarang');
-                return false;
-            }
         });
 
         function formatNumber(input) {
@@ -341,4 +375,4 @@
     });
 </script>
 @endpush
-@endsection 
+@endsection

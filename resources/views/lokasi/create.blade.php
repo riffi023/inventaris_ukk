@@ -41,52 +41,54 @@
 @endsection
 
 @section('content')
-<div class="edit-card">
-    <div class="edit-header">
-        <h5 class="mb-0">
-            <i class="fas fa-plus-circle me-2"></i>Tambah Lokasi
-        </h5>
-        <p class="mb-0 text-white-50">Tambah data lokasi baru</p>
-    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="edit-card">
+                <div class="edit-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-plus-circle me-2"></i>Tambah Lokasi
+                    </h5>
+                    <p class="mb-0 text-white-50">Tambah data lokasi baru</p>
+                </div>
 
-    <div class="edit-body">
-        <form action="{{ route('lokasi.store') }}" method="POST">
-            @csrf
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="nama_lokasi">
-                            <i class="fas fa-map-marker-alt me-2"></i>Nama Lokasi
-                        </label>
-                        <input type="text" class="form-control @error('nama_lokasi') is-invalid @enderror"
-                            id="nama_lokasi" name="nama_lokasi" value="{{ old('nama_lokasi') }}" required>
-                        @error('nama_lokasi')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                <div class="edit-body">
+                    <form action="{{ route('lokasi.store') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="nama_lokasi">
+                                <i class="fas fa-map-marker-alt me-2"></i>Nama Lokasi
+                            </label>
+                            <input type="text" class="form-control @error('nama_lokasi') is-invalid @enderror"
+                                id="nama_lokasi" name="nama_lokasi" value="{{ old('nama_lokasi') }}" required>
+                            @error('nama_lokasi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                    <div class="form-group">
-                        <label for="keterangan">
-                            <i class="fas fa-sticky-note me-2"></i>Keterangan
-                        </label>
-                        <textarea class="form-control @error('keterangan') is-invalid @enderror" id="keterangan"
-                            name="keterangan" rows="4" required>{{ old('keterangan') }}</textarea>
-                        @error('keterangan')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                        <div class="form-group">
+                            <label for="keterangan">
+                                <i class="fas fa-sticky-note me-2"></i>Keterangan
+                            </label>
+                            <textarea class="form-control @error('keterangan') is-invalid @enderror" id="keterangan"
+                                name="keterangan" rows="4" required>{{ old('keterangan') }}</textarea>
+                            @error('keterangan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="button-group text-end">
+                            <a href="{{ route('lokasi.index') }}" class="btn btn-secondary me-2">
+                                <i class="fas fa-arrow-left me-2"></i>Kembali
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Simpan
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <div class="button-group text-end">
-                <a href="{{ route('lokasi.index') }}" class="btn btn-secondary me-2">
-                    <i class="fas fa-arrow-left me-2"></i>Kembali
-                </a>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save me-2"></i>Simpan
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 @endsection
