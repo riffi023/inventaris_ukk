@@ -26,6 +26,7 @@ return new class extends Migration
             $table->date('tgl_pengadaan');
             $table->string('harga_barang');
             $table->string('nilai_barang');
+            $table->integer('stock_barang')->default(0); // Added stock_barang column
             $table->decimal('depresiasi_barang', 15, 2)->default(0);
             $table->enum('status_login',['0','1']);
             $table->string('keterangan',50);
