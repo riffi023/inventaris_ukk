@@ -66,9 +66,9 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">
-            <div>
+            <div class="d-flex justify-content-between align-items-center">
                 <h5 class="mb-0"><i class="fas fa-clipboard-check me-2"></i>Data Opname</h5>
-                <p class="mb-0 text-white-50">Data opname barang dari admin</p>
+
             </div>
         </div>
 
@@ -84,6 +84,7 @@
                             <th class="text-nowrap px-3"><i class="fas fa-calendar-alt me-2"></i>Tanggal Opname</th>
                             <th class="text-nowrap px-3"><i class="fas fa-info-circle me-2"></i>Kondisi</th>
                             <th class="text-nowrap px-3"><i class="fas fa-boxes me-2"></i>Stock</th>
+                            <th class="text-nowrap px-3"><i class="fas fa-user me-2"></i>Nama Pegawai</th>
                             <th class="text-nowrap px-3"><i class="fas fa-comment me-2"></i>Keterangan</th>
                             <th class="text-nowrap px-3"><i class="fas fa-eye me-2"></i>Aksi</th>
                         </tr>
@@ -104,16 +105,20 @@
                                     @endif
                                 </td>
                                 <td>{{ number_format($opname->pengadaan->stock_barang, 0, ',', '.') }} {{ $opname->pengadaan->satuan->nama_satuan }}</td>
+                                <td>{{ $opname->nama_pegawai }}</td>
                                 <td>{{ $opname->keterangan }}</td>
                                 <td>
                                     <a href="{{ route('user.opname.show', $opname) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
+                                    <a href="{{ route('user.opname.edit', $opname) }}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center">Tidak ada data</td>
+                                <td colspan="8" class="text-center">Tidak ada data</td>
                             </tr>
                         @endforelse
                     </tbody>

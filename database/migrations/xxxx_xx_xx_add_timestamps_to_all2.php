@@ -35,11 +35,12 @@ return new class extends Migration
 
         Schema::create('tbl_opname', function (Blueprint $table) {
             $table->id('id_opname');
-            $table->foreignId('id_pengadaan')->constrained('tbl_pengadaan','id_pengadaan')->cascadeOnDelete();
-            $table->string('tgl_opname',45);
-            $table->string('kondisi',45);
-            $table->string('keterangan',100);
+            $table->foreignId('id_pengadaan')->constrained('tbl_pengadaan', 'id_pengadaan')->cascadeOnDelete();
+            $table->string('tgl_opname', 45);
+            $table->string('kondisi', 45);
+            $table->string('keterangan', 100);
             $table->integer('stock_update')->nullable();
+            $table->string('nama_pegawai', 100); // Add nama_pegawai field
             $table->timestamps();
         });
 

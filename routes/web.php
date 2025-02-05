@@ -47,9 +47,14 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/user/pengadaan', [UserPengadaanController::class, 'index'])->name('user.pengadaan.index');
     Route::get('/user/pengadaan/{pengadaan}', [UserPengadaanController::class, 'show'])->name('user.pengadaan.show');
 
-    // Add this route for Opname
+    // Update user opname routes
     Route::get('/user/opname', [UserOpnameController::class, 'index'])->name('user.opname.index');
+    Route::get('/user/opname/create', [UserOpnameController::class, 'create'])->name('user.opname.create');
+    Route::post('/user/opname', [UserOpnameController::class, 'store'])->name('user.opname.store');
     Route::get('/user/opname/{opname}', [UserOpnameController::class, 'show'])->name('user.opname.show');
+    Route::get('/user/opname/{opname}/edit', [UserOpnameController::class, 'edit'])->name('user.opname.edit');
+    Route::put('/user/opname/{opname}', [UserOpnameController::class, 'update'])->name('user.opname.update');
+    Route::delete('/user/opname/{opname}', [UserOpnameController::class, 'destroy'])->name('user.opname.destroy');
 
     // Add this route for History
     Route::get('/user/history', [UserController::class, 'getUserHistory'])->name('user.history');

@@ -105,6 +105,18 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label for="nama_pegawai">
+                            <i class="fas fa-user me-2"></i>Nama Pegawai
+                        </label>
+                        <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror"
+                               id="nama_pegawai" name="nama_pegawai" 
+                               value="{{ old('nama_pegawai', $opname->nama_pegawai) }}" required>
+                        @error('nama_pegawai')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
 
                 <div class="col-md-6">

@@ -67,6 +67,7 @@
                         <th class="text-nowrap px-3"><i class="fas fa-hashtag me-2"></i>No</th>
                         <th class="text-nowrap px-3"><i class="fas fa-box me-2"></i>Barang</th>
                         <th class="text-nowrap px-3"><i class="fas fa-calendar-alt me-2"></i>Tanggal Opname</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-user me-2"></i>Nama Pegawai</th>
                         <th class="text-nowrap px-3"><i class="fas fa-info-circle me-2"></i>Kondisi</th>
                         <th class="text-nowrap px-3"><i class="fas fa-boxes me-2"></i>Stock</th>
                         <th class="text-nowrap px-3"><i class="fas fa-sync me-2"></i>Stock Update</th>
@@ -80,6 +81,7 @@
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{ $opname->pengadaan->masterBarang->nama_barang }}</td>
                             <td>{{ $opname->tgl_opname->format('d/m/Y') }}</td>
+                            <td>{{ $opname->nama_pegawai }}</td>
                             <td>
                                 @if($opname->kondisi == 'Baik')
                                     <span class="badge bg-success">{{ $opname->kondisi }}</span>
@@ -122,7 +124,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center">Tidak ada data</td>
+                            <td colspan="9" class="text-center">Tidak ada data</td>
                         </tr>
                     @endforelse
                 </tbody>

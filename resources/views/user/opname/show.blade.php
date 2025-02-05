@@ -127,6 +127,13 @@
                         @endif
                     </p>
                 </div>
+
+                <div class="info-group">
+                    <span class="info-label">
+                        <i class="fas fa-user"></i> Nama Pegawai
+                    </span>
+                    <p class="info-value">{{ $opname->nama_pegawai }}</p>
+                </div>
             </div>
 
             <div class="col-md-6">

@@ -15,7 +15,8 @@ class Opname extends Model
         'tgl_opname',
         'kondisi',
         'keterangan',
-        'stock_update'
+        'stock_update',
+        'nama_pegawai'
     ];
 
     protected $casts = [

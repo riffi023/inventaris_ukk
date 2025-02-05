@@ -109,7 +109,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <div class="info-group detail-item">
+                <div class="info-group">
                     <strong class="info-label">
                         <i class="fas fa-box"></i>
                         Barang
@@ -117,7 +117,7 @@
                     <p class="info-value">{{ $opname->pengadaan->masterBarang->nama_barang }}</p>
                 </div>
 
-                <div class="info-group detail-item">
+                <div class="info-group">
                     <strong class="info-label">
                         <i class="fas fa-calendar-alt"></i>
                         Tanggal Opname
@@ -125,7 +125,7 @@
                     <p class="info-value">{{ $opname->tgl_opname->format('d F Y') }}</p>
                 </div>
 
-                <div class="info-group detail-item">
+                <div class="info-group">
                     <strong class="info-label">
                         <i class="fas fa-info-circle"></i>
                         Kondisi
@@ -143,7 +143,7 @@
             </div>
 
             <div class="col-md-6">
-                <div class="info-group detail-item">
+                <div class="info-group">
                     <strong class="info-label">
                         <i class="fas fa-boxes"></i>
                         Stock Barang
@@ -155,7 +155,7 @@
                 </div>
 
                 @if($opname->stock_update)
-                    <div class="info-group detail-item">
+                    <div class="info-group">
                         <strong class="info-label">
                             <i class="fas fa-sync"></i>
                             Stock Update
@@ -167,7 +167,7 @@
                     </div>
                 @endif
 
-                <div class="info-group detail-item">
+                <div class="info-group">
                     <strong class="info-label">
                         <i class="fas fa-sticky-note"></i>
                         Keterangan
@@ -179,21 +179,21 @@
 
         <div class="row mt-4">
             <div class="col-md-6">
-                <div class="info-group detail-item">
+                <div class="info-group">
+                    <strong class="info-label">
+                        <i class="fas fa-user"></i>
+                        Nama Pegawai
+                    </strong>
+                    <p class="info-value">{{ $opname->nama_pegawai }}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info-group">
                     <strong class="info-label">
                         <i class="fas fa-clock"></i>
                         Dibuat Pada
                     </strong>
                     <p class="info-value">{{ $opname->created_at->format('d F Y H:i') }}</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="info-group detail-item">
-                    <strong class="info-label">
-                        <i class="fas fa-history"></i>
-                        Diperbarui Pada
-                    </strong>
-                    <p class="info-value">{{ $opname->updated_at->format('d F Y H:i') }}</p>
                 </div>
             </div>
         </div>

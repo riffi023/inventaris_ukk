@@ -27,7 +27,8 @@ class OpnameController extends Controller
             'tgl_opname' => 'required|date',
             'kondisi' => 'required|string|max:45',
             'keterangan' => 'required|string|max:100',
-            'stock_update' => 'nullable|integer|min:0'
+            'stock_update' => 'nullable|integer|min:0',
+            'nama_pegawai' => 'required|string|max:100'
         ]);
 
         // Buat opname baru
@@ -62,7 +63,8 @@ class OpnameController extends Controller
             'tgl_opname' => 'required|date',
             'kondisi' => 'required|string|max:45',
             'keterangan' => 'required|string|max:100',
-            'stock_update' => 'nullable|integer|min:0'
+            'stock_update' => 'nullable|integer|min:0',
+            'nama_pegawai' => 'required|string|max:100'
         ]);
 
         // Update stock di pengadaan jika ada perubahan
