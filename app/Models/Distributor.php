@@ -16,4 +16,9 @@ class Distributor extends Model
         'email',
         'keterangan'
     ];
+
+    public function pengadaan()
+    {
+        return $this->hasMany(Pengadaan::class, 'id_distributor', 'id_distributor');
+    }
 }

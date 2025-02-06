@@ -100,8 +100,10 @@
                                         <span class="badge bg-success">{{ $opname->kondisi }}</span>
                                     @elseif($opname->kondisi == 'Rusak Ringan')
                                         <span class="badge bg-warning">{{ $opname->kondisi }}</span>
-                                    @else
+                                    @elseif($opname->kondisi == 'Rusak Berat')
                                         <span class="badge bg-danger">{{ $opname->kondisi }}</span>
+                                    @elseif($opname->kondisi == 'Hilang')
+                                    <span class="badge bg-danger">{{ $opname->kondisi }}</span>
                                     @endif
                                 </td>
                                 <td>{{ number_format($opname->pengadaan->stock_barang, 0, ',', '.') }} {{ $opname->pengadaan->satuan->nama_satuan }}</td>

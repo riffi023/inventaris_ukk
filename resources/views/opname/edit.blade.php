@@ -100,6 +100,9 @@
                             <option value="Rusak Berat" {{ $opname->kondisi == 'Rusak Berat' ? 'selected' : '' }}>
                                 Rusak Berat
                             </option>
+                            <option value="Rusak Berat" {{ $opname->kondisi == 'Hilang' ? 'selected' : '' }}>
+                                Hilang
+                            </option>
                         </select>
                         @error('kondisi')
                             <div class="invalid-feedback">{{ $message }}</div>

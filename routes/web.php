@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriAssetController;
 use App\Http\Controllers\SettingsController;
@@ -21,6 +21,7 @@ use App\Http\Controllers\UserHitungDepresiasiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPengadaanController;
 use App\Http\Controllers\UserOpnameController;
+
 
 Route::get('/', function () {
     return view('welcome');

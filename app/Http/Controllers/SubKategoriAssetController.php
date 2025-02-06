@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SubKategoriAsset;
 use App\Models\KategoriAsset;
+
 use Illuminate\Http\Request;
 
 class SubKategoriAssetController extends Controller
@@ -61,9 +62,20 @@ class SubKategoriAssetController extends Controller
 
     public function destroy(SubKategoriAsset $subKategoriAsset)
     {
-        $subKategoriAsset->delete();
+        // Cek apakah ada pengadaan yang menggunakan sub kategori asset ini
+        if ($subKategoriAsset->pengadaan()->exists()) {
+            return redirect()->route('sub-kategori-asset.index')
+                ->with('error', 'Sub Kategori Asset tidak dapat dihapus karena sedang digunakan di pengadaan.');
+        }
 
-        return redirect()->route('sub-kategori-asset.index')
-            ->with('success', 'Sub Kategori Asset berhasil dihapus.');
+        $subKategoriAsset->delete();
+        return redirect()->route('sub-kategori-asset.index')->with('success', 'Sub Kategori Asset berhasil dihapus.');
+        
+        
+    }
+
+    public function pengadaan()
+    {
+        return $this->hasMany(PengadaanController::class, 'id_sub_kategori_asset', 'id_sub_kategori_asset');
     }
 }

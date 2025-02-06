@@ -224,6 +224,19 @@
                                         @enderror
                                     </div>
 
+                                    <div class="mb-3">
+                                        <label for="stock_barang" class="form-label">Stock Barang</label>
+                                        <input type="number" class="form-control @error('stock_barang') is-invalid @enderror" 
+                                               id="stock_barang" name="stock_barang" 
+                                               value="{{ old('stock_barang', $pengadaan->stock_barang) }}" 
+                                               min="0" required>
+                                        @error('stock_barang')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
                                     <div class="form-group">
                                         <label for="status_login">Status</label>
                                         <select class="form-control @error('status_login') is-invalid @enderror" 
@@ -240,6 +253,7 @@
                                         @enderror
                                     </div>
 
+
                                     <div class="form-group">
                                         <label for="keterangan">Keterangan</label>
                                         <textarea class="form-control @error('keterangan') is-invalid @enderror" 
@@ -249,18 +263,6 @@
                                         @enderror
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="stock_barang" class="form-label">Stock Barang</label>
-                                        <input type="number" class="form-control @error('stock_barang') is-invalid @enderror" 
-                                               id="stock_barang" name="stock_barang" 
-                                               value="{{ old('stock_barang', $pengadaan->stock_barang) }}" 
-                                               min="0" required>
-                                        @error('stock_barang')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
 
             <div class="button-group">
                 <button type="submit" class="btn btn-primary">

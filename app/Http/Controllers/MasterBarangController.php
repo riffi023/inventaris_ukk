@@ -56,6 +56,12 @@ class MasterBarangController extends Controller
 
     public function destroy(MasterBarang $masterBarang)
     {
+        // Cek apakah ada pengadaan yang menggunakan barang ini
+        if ($masterBarang->pengadaan()->exists()) {
+            return redirect()->route('master_barang.index')
+                ->with('error', 'Barang tidak dapat dihapus karena sedang digunakan di pengadaan.');
+        }
+
         $masterBarang->delete();
         return redirect()->route('master_barang.index')
             ->with('success', 'Barang berhasil dihapus.');

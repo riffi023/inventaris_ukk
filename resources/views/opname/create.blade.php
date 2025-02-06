@@ -97,6 +97,7 @@
                             <option value="Baik">Baik</option>
                             <option value="Rusak Ringan">Rusak Ringan</option>
                             <option value="Rusak Berat">Rusak Berat</option>
+                            <option value="Hilang">Hilang</option>
                         </select>
                         @error('kondisi')
                             <div class="invalid-feedback">{{ $message }}</div>

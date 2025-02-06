@@ -31,4 +31,9 @@ class Depresiasi extends Model
             'penyusutan' => $penyusutanPerBulan
         ];
     }
+
+    public function pengadaan()
+    {
+        return $this->hasMany(Pengadaan::class, 'id_depresiasi', 'id_depresiasi');
+    }
 }

@@ -81,6 +81,12 @@ class DistributorController extends Controller
 
     public function destroy(Distributor $distributor)
     {
+        // Cek apakah ada pengadaan yang menggunakan distributor ini
+        if ($distributor->pengadaan()->exists()) {
+            return redirect()->route('distributor.index')
+                ->with('error', 'Distributor tidak dapat dihapus karena sedang digunakan di pengadaan.');
+        }
+
         $distributor->delete();
         return redirect()->route('distributor.index')->with('success', 'Distributor berhasil dihapus.');
     }

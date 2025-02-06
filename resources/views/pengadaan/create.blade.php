@@ -242,6 +242,18 @@
                         @enderror
                     </div>
 
+                    <div class="mb-3">
+                        <label for="stock_barang" class="form-label">Stock Barang</label>
+                        <input type="number" class="form-control @error('stock_barang') is-invalid @enderror" 
+                               id="stock_barang" name="stock_barang" value="{{ old('stock_barang', 0) }}" 
+                               min="0" required>
+                        @error('stock_barang')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+
                     <div class="form-group">
                         <label for="status_login">
                             <i class="fas fa-check-circle"></i> Status
@@ -267,17 +279,6 @@
                         @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label for="stock_barang" class="form-label">Stock Barang</label>
-                        <input type="number" class="form-control @error('stock_barang') is-invalid @enderror" 
-                               id="stock_barang" name="stock_barang" value="{{ old('stock_barang', 0) }}" 
-                               min="0" required>
-                        @error('stock_barang')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-            </div>
 
             <div class="button-group">
                 <button type="submit" class="btn btn-primary">

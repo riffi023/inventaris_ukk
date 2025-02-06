@@ -26,8 +26,8 @@ class Pengadaan extends Model
         'nilai_barang',
         'depresiasi_barang',
         'stock_barang',
-        'keterangan',    // Add this
-        'status_login'   // Add this
+        'keterangan',
+        'status_login'
     ];
 
     protected $dates = [

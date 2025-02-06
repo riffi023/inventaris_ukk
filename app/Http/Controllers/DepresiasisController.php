@@ -77,6 +77,12 @@ class DepresiasisController extends Controller
 
     public function destroy(Depresiasi $depresiasi)
     {
+        // Cek apakah ada pengadaan yang menggunakan depresiasi ini
+        if ($depresiasi->pengadaan()->exists()) {
+            return redirect()->route('depresiasi.index')
+                ->with('error', 'Depresiasi tidak dapat dihapus karena sedang digunakan di pengadaan.');
+        }
+
         $depresiasi->delete();
         return redirect()->route('depresiasi.index')
             ->with('success', 'Depresiasi berhasil dihapus.');

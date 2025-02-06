@@ -80,8 +80,8 @@
                         <th class="text-nowrap px-3"><i class="fas fa-money-bill me-2"></i>Harga</th>
                         <th class="text-nowrap px-3"><i class="fas fa-coins me-2"></i>Nilai</th>
                         <th class="text-nowrap px-3"><i class="fas fa-chart-line me-2"></i>Depresiasi/Bulan</th>
-                        <th class="text-nowrap px-3"><i class="fas fa-check-circle me-2"></i>Status</th>
                         <th class="text-nowrap px-3"><i class="fas fa-boxes me-2"></i>Stock</th>
+                        <th class="text-nowrap px-3"><i class="fas fa-check-circle me-2"></i>Status</th>
                         <th class="text-nowrap px-3"><i class="fas fa-cog me-2"></i>Aksi</th>
                     </tr>
                 </thead>
@@ -103,6 +103,7 @@
                             <td>{{ $pengadaan->formatted_harga_barang }}</td>
                             <td>{{ $pengadaan->formatted_nilai_barang }}</td>
                             <td>{{ 'Rp ' . number_format($pengadaan->depresiasi_barang, 0, ',', '.') }}/bulan</td>
+                            <td class="text-end">{{ number_format($pengadaan->stock_barang, 0, ',', '.') }}</td>
                             <td>
                                 @if($pengadaan->status_login == '1')
                                     <span class="badge bg-success">Aktif</span>
@@ -110,7 +111,6 @@
                                     <span class="badge bg-danger">Tidak Aktif</span>
                                 @endif
                             </td>
-                            <td class="text-end">{{ number_format($pengadaan->stock_barang, 0, ',', '.') }}</td>
                             <td>
                                 <div class="btn-group">
                                     <a href="{{ route('pengadaan.show', $pengadaan) }}" class="btn btn-info btn-action">
