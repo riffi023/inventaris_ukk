@@ -1,11 +1,11 @@
-#🛠️ Cara Install & Jalankan
+*🛠️ Cara Install & Jalankan*
  1. Clone repo ini
 git clone [https://github.com/usernamekamu/nama-repo.git](https://github.com/riffi023/inventaris_ukk.git)
 
  2. Masuk ke folder project
 cd inventaris_ukk
 
-# 3. Install dependency backend
+ 3. Install dependency backend
 composer install
 
  4. Install dependency frontend (opsional kalau pakai Vite)
@@ -27,11 +27,13 @@ php artisan db:seed --class=CreateUsersSeeder
  9. Jalankan server lokal
 php artisan serve
 
-#🌐 Akses Aplikasi
+*🌐 Akses Aplikasi*
+
 Setelah menjalankan php artisan serve, buka di browser:
 http://127.0.0.1:8000
 
-#🔑 Akun Default (Jika Seeder Menyediakan)
+*🔑 Akun Default (Jika Seeder Menyediakan)*
+
 Email    : admin@gmail.com
 Password : 12345678
 Email    : user@gmail.com
