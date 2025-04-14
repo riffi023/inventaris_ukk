@@ -20,11 +20,13 @@ php artisan key:generate
  7. Atur konfigurasi database di .env
 
  8. Jalankan migrasi (dan seeder kalau ada)
+    
 php artisan migrate
+
 php artisan db:seed --class=CreateUsersSeeder
 
 
- 9. Jalankan server lokal
+ 10. Jalankan server lokal
 php artisan serve
 
 *🌐 Akses Aplikasi*
