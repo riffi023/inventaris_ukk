@@ -126,9 +126,7 @@
                                 id="stock_update" name="stock_update" value="{{ old('stock_update') }}" min="0">
                             <span class="input-group-text bg-light" id="satuan-text">-</span>
                         </div>
-                        <small class="form-text text-muted" id="current-stock">
-                            Stock saat ini: -
-                        </small>
+
                         @error('stock_update')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

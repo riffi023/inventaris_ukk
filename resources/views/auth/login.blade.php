@@ -218,14 +218,6 @@
                             <button type="submit" class="login-btn" id="loginBtn">
                                 <i class="fas fa-sign-in-alt me-2"></i> Login
                             </button>
-
-                            @if (Route::has('password.request'))
-                                <div class="text-center mt-3">
-                                    <a href="{{ route('password.request') }}" class="text-decoration-none">
-                                        Forgot Password?
-                                    </a>
-                                </div>
-                            @endif
                         </form>
 
                         <div class="register-link">
