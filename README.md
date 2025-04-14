@@ -30,11 +30,13 @@ php artisan serve
 *🌐 Akses Aplikasi*
 
 Setelah menjalankan php artisan serve, buka di browser:
+
 http://127.0.0.1:8000
 
 *🔑 Akun Default (Jika Seeder Menyediakan)*
 
 Email    : admin@gmail.com
 Password : 12345678
+
 Email    : user@gmail.com
 Password : 12345678
