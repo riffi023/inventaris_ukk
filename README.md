@@ -1,3 +1,4 @@
+<h1 align="center">📦 Inventaris UKK Laravel</h1> <p align="center">Sistem manajemen inventaris sederhana menggunakan Laravel. Ikuti panduan di bawah untuk menjalankan proyek ini di lokal kamu.</p>
 *🛠️ Cara Install & Jalankan*
 # 1. Clone repositori
 git clone https://github.com/riffi023/inventaris_ukk.git
