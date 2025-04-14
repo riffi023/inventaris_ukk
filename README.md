@@ -1,38 +1,30 @@
 *🛠️ Cara Install & Jalankan*
- 1. Clone repo ini
-git clone [https://github.com/usernamekamu/nama-repo.git](https://github.com/riffi023/inventaris_ukk.git)
+# 1. Clone repositori
+git clone https://github.com/riffi023/inventaris_ukk.git
 
- 2. Masuk ke folder project
-    
+# 2. Masuk ke direktori project
 cd inventaris_ukk
 
- 4. Install dependency backend
-    
+# 3. Install dependency backend
 composer install
 
- 6. Install dependency frontend (opsional kalau pakai Vite)
-    
+# 4. Install dependency frontend (opsional)
 npm install && npm run dev
 
- 8. Salin file .env
-    
+# 5. Salin file environment
 cp .env.example .env
 
- 10. Generate key aplikasi
-     
+# 6. Generate application key
 php artisan key:generate
 
- 12. Atur konfigurasi database di .env
+# 7. Konfigurasi database
+# Buka file .env dan sesuaikan DB_DATABASE, DB_USERNAME, dan DB_PASSWORD
 
- 13. Jalankan migrasi (dan seeder kalau ada)
-    
+# 8. Jalankan migrasi dan seeder
 php artisan migrate
-
 php artisan db:seed --class=CreateUsersSeeder
 
-
- 10. Jalankan server lokal
-     
+# 9. Jalankan server lokal
 php artisan serve
 
 *🌐 Akses Aplikasi*
